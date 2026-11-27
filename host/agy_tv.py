@@ -725,12 +725,21 @@ class Bridge:
         if not port:
             return False
         try:
-            ser = serial.serial_for_url(port, baudrate=115200, timeout=0.1, write_timeout=1.0,
-                                        dsrdtr=False, rtscts=False)
+            kwargs = dict(baudrate=115200, timeout=0.1, dsrdtr=False, rtscts=False)
+            if "://" not in port:
+                kwargs["write_timeout"] = 1.0  # rfc2217:// does not support write_timeout
+            ser = serial.serial_for_url(port, **kwargs)
             if "://" not in port:
                 ser.dtr = True   # both asserted: the safe "run" combination
                 ser.rts = True   # (opening the port resets the chip once: boot splash)
-            time.sleep(0.3)
+                time.sleep(0.3)
+            elif port.startswith("rfc2217://"):
+                # esp_rfc2217_server triggers reset on open (DTR_ON); DTR_OFF + RTS_OFF
+                # ensures a clean normal boot instead of staying in ROM download mode.
+                ser.dtr = False
+                time.sleep(0.1)
+                ser.rts = False
+                time.sleep(1.5)
             ser.reset_input_buffer()
             self.ser = ser
             self.port = port
@@ -1179,7 +1188,12 @@ def send_main(line, port=None):
     if "://" not in port:
         ser.dtr = True   # safe "run" line states
         ser.rts = True   # (opening resets the chip once)
-    time.sleep(0.3)
+        time.sleep(0.3)
+    elif port.startswith("rfc2217://"):
+        ser.dtr = False
+        time.sleep(0.1)
+        ser.rts = False
+        time.sleep(1.5)
     ser.reset_input_buffer()
     ser.write((line + "\n").encode("utf-8"))
     deadline = time.time() + 1.5
