@@ -26,12 +26,14 @@ def find_port():
 
 
 def main():
-    port = sys.argv[1] if len(sys.argv) > 1 else find_port()
+    port = (sys.argv[1] if len(sys.argv) > 1 else find_port())
     if port is None:
         sys.exit("no ESP32 serial port found (looked for /dev/cu.usbmodem*, /dev/ttyACM*, /dev/ttyUSB*)")
-    ser = serial.Serial(port, 115200, timeout=0.1, dsrdtr=False, rtscts=False)
-    ser.dtr = True
-    ser.rts = True
+    port = port.replace("ign_set_controls", "ign_set_control")
+    ser = serial.serial_for_url(port, baudrate=115200, timeout=0.1, dsrdtr=False, rtscts=False)
+    if "://" not in port:
+        ser.dtr = True
+        ser.rts = True
     print("watching %s -- Ctrl-C to exit (never resets the board)\n" % port)
     stdin = sys.stdin.fileno()
     old = termios.tcgetattr(stdin)

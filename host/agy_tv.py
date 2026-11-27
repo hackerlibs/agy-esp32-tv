@@ -721,14 +721,15 @@ class Bridge:
             return True
         import serial  # only needed by the bridge, keeps hook start-up fast
 
-        port = self.port or find_port()
+        port = normalize_port(self.port or find_port())
         if not port:
             return False
         try:
-            ser = serial.Serial(port, 115200, timeout=0.1, write_timeout=1.0,
-                                dsrdtr=False, rtscts=False)
-            ser.dtr = True   # both asserted: the safe "run" combination
-            ser.rts = True   # (opening the port resets the chip once: boot splash)
+            ser = serial.serial_for_url(port, baudrate=115200, timeout=0.1, write_timeout=1.0,
+                                        dsrdtr=False, rtscts=False)
+            if "://" not in port:
+                ser.dtr = True   # both asserted: the safe "run" combination
+                ser.rts = True   # (opening the port resets the chip once: boot splash)
             time.sleep(0.3)
             ser.reset_input_buffer()
             self.ser = ser
@@ -1119,8 +1120,18 @@ class Bridge:
                     pass
 
 
+def normalize_port(port):
+    if not port:
+        return port
+    # Common typo in RFC2217 URLs: pyserial expects singular ign_set_control.
+    return port.replace("ign_set_controls", "ign_set_control")
+
+
 def find_port():
-    """Find an ESP32 USB-Serial/JTAG port on macOS or Linux."""
+    """Find an ESP32 USB-Serial/JTAG port on macOS/Linux, or AGY_TV_PORT (supports rfc2217://)."""
+    env_port = os.environ.get("AGY_TV_PORT")
+    if env_port:
+        return normalize_port(env_port)
     patterns = (
         "/dev/cu.usbmodem*",
         "/dev/ttyACM*",
@@ -1161,12 +1172,13 @@ def send_main(line, port=None):
             pass
     import serial
 
-    port = port or find_port()
+    port = normalize_port(port or find_port())
     if not port:
-        sys.exit("no ESP32 serial port found (looked for /dev/cu.usbmodem*, /dev/ttyACM*, /dev/ttyUSB*)")
-    ser = serial.Serial(port, 115200, timeout=0.5, dsrdtr=False, rtscts=False)
-    ser.dtr = True   # safe "run" line states
-    ser.rts = True   # (opening resets the chip once)
+        sys.exit("no ESP32 serial port found (looked for AGY_TV_PORT, /dev/cu.usbmodem*, /dev/ttyACM*, /dev/ttyUSB*)")
+    ser = serial.serial_for_url(port, baudrate=115200, timeout=0.5, dsrdtr=False, rtscts=False)
+    if "://" not in port:
+        ser.dtr = True   # safe "run" line states
+        ser.rts = True   # (opening resets the chip once)
     time.sleep(0.3)
     ser.reset_input_buffer()
     ser.write((line + "\n").encode("utf-8"))
