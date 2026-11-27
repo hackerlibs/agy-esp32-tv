@@ -64,6 +64,22 @@ esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const
     return ESP_OK;
 }
 
+/* Dumps the top-left corner of both buffers as characters, for tracking down stray pixels. */
+static void dump_corner(void)
+{
+    for (int pass = 0; pass < 2; pass++) {
+        const uint8_t *buf = pass ? gfx_framebuffer() : g_panel;
+        fprintf(stderr, "%s\n", pass ? "framebuffer, rows 0..7 x 0..31:" : "panel, rows 0..7 x 0..31:");
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 32; x++) {
+                const uint16_t c = (uint16_t)((buf[(size_t)(y * GFX_W + x) * 2] << 8) | buf[(size_t)(y * GFX_W + x) * 2 + 1]);
+                fputc(c == 0xEF7E ? '#' : c == 0x2E5F ? 'c' : c == 0x1084 ? '.' : c == 0x1147 ? '-' : '?', stderr);
+            }
+            fputc('\n', stderr);
+        }
+    }
+}
+
 static void fail(const char *fmt, ...)
 {
     va_list ap;
@@ -86,7 +102,24 @@ static void render(const char *what)
         g_mismatches++;
         for (int y = 0; y < GFX_H; y++) {
             if (memcmp(&g_panel[(size_t)y * GFX_W * 2], gfx_framebuffer() + (size_t)y * GFX_W * 2, GFX_W * 2) != 0) {
-                fail("after %s: row %d on the panel differs from the framebuffer (dirty row not pushed)\n", what, y);
+                const uint8_t *want = gfx_framebuffer() + (size_t)y * GFX_W * 2;
+                int first = -1, last = -1;
+                for (int x = 0; x < GFX_W; x++) {
+                    if (memcmp(&g_panel[(size_t)y * GFX_W * 2 + x * 2], &want[x * 2], 2) != 0) {
+                        if (first < 0) {
+                            first = x;
+                        }
+                        last = x;
+                    }
+                }
+                dump_corner();
+                fail("after %s: row %d on the panel differs from the framebuffer (dirty row not pushed); "
+                     "differing pixels x=%d..%d, panel=0x%04x framebuffer=0x%04x (neighbours on panel: "
+                     "0x%04x 0x%04x)\n",
+                     what, y, first, last, (g_panel[(size_t)y * GFX_W * 2 + first * 2] << 8) | g_panel[(size_t)y * GFX_W * 2 + first * 2 + 1],
+                     (want[first * 2] << 8) | want[first * 2 + 1],
+                     first > 0 ? (g_panel[(size_t)y * GFX_W * 2 + (first - 1) * 2] << 8) | g_panel[(size_t)y * GFX_W * 2 + (first - 1) * 2 + 1] : 0,
+                     (g_panel[(size_t)(y + 1) * GFX_W * 2 + first * 2] << 8) | g_panel[(size_t)(y + 1) * GFX_W * 2 + first * 2 + 1]);
             }
         }
         fail("after %s: panel differs from the framebuffer\n", what);
@@ -125,6 +158,8 @@ static void clock_of(char out[ZM_CLK_MAX])
     snprintf(out, ZM_CLK_MAX, "%02ld:%02ld:%02ld", sec / 3600 % 100, sec / 60 % 60, sec % 60);
 }
 
+static const char *PROJ = "esp32_tv";
+
 static void push(zstate_t state, const char *tool, const char *msg, const char *cur, long tools, long fails,
                  long elapsed, long done, long total)
 {
@@ -135,7 +170,7 @@ static void push(zstate_t state, const char *tool, const char *msg, const char *
         .tool = tool,
         .msg = msg,
         .cur = cur,
-        .proj = "esp32_tv",
+        .proj = PROJ,
         .clock = clk,
         .date = "2026-11-27 FRI",
         .tool_count = tools,
@@ -216,6 +251,28 @@ int main(int argc, char **argv)
     g_now += 13 * 1000000;
     run(0.5, "link lost");
     save("lost");
+
+    printf("scenario: Chinese text, plus characters the font does not have\n");
+    g_usb = true;
+    push(ZST_THINK, "", "帮小电视加上中文显示：屏幕上要能显示 ZCode 的状态和待办进度，不只是英文。"
+                        "This sentence is here to mix both scripts on one line and check the wrap.",
+         "给绘图层加混合文本渲染器", 0, 0, 3, 1, 4);
+    run(1.0, "think (Chinese)");
+    save("cjk_think");
+    push(ZST_TOOL, "Edit", "main/ui.c：文字部件改用 gfx_text_u8，按 UTF-8 解码逐字选择字体，找不到的字形跳过",
+         "\xe2\x9c\x85 生成字库：GB2312 全集 + 常用符号 → vérifier naïve", 9, 0, 77, 2, 4);
+    run(1.0, "tool (Chinese)");
+    save("cjk_tool");
+    push(ZST_DONE, "", "完成。固件现在能显示 GB2312 范围内的中文：\n- 标题用 Press Start 2P\n"
+                       "- 正文 ASCII 用 Spleen 5x8，中文用 Cubic 11\n- 字库约 190KB，放在 Flash 里，不占 RAM",
+         "", 21, 0, 150, 4, 4);
+    run(0.5, "done (Chinese)");
+    save("cjk_done");
+    PROJ = "\xe5\xb0\x8f\xe7\x94\xb5\xe8\xa7\x86"; /* a non-ASCII project name */
+    push(ZST_IDLE, "", "", "", 21, 0, 0, 0, 0);
+    run(0.5, "idle (Chinese project)");
+    save("cjk_idle");
+    PROJ = "esp32_tv";
 
     printf("scenario: demo mode, one screen per step\n");
     g_now += 5 * 1000000;

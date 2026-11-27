@@ -19,8 +19,8 @@ typedef enum {
 } zstate_t;
 
 #define ZM_TOOL_MAX 20
-#define ZM_MSG_MAX  192
-#define ZM_CUR_MAX  96
+#define ZM_MSG_MAX  240 /* bytes of UTF-8: about 80 Chinese characters */
+#define ZM_CUR_MAX  120
 #define ZM_PROJ_MAX 32
 #define ZM_SID_MAX  12
 #define ZM_CLK_MAX  12  /* "HH:MM:SS" */

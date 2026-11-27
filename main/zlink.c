@@ -39,10 +39,11 @@ static void reply(const char *fmt, ...)
     usb_serial_jtag_write_bytes(buf, (size_t)n, 0);
 }
 
-/* Control characters and non-ASCII bytes would only render as blanks. */
+/* Control characters would only render as blanks. Bytes of 0x80 and above are
+ * kept: they are UTF-8, which the firmware renders with its CJK font. */
 static char printable(char c)
 {
-    return (c >= 0x20 && c <= 0x7E) ? c : ' ';
+    return (c >= 0x20 && c <= 0x7E) || (unsigned char)c >= 0x80 ? c : ' ';
 }
 
 /*
@@ -205,8 +206,8 @@ static void handle_command(char *p)
         ui_stats_t u;
         gfx_get_stats(&g);
         ui_get_stats(&u);
-        reply("ZTV1 R stats frames=%lu last_us=%ld max_us=%ld flushes=%lu rows=%lu flush_last_us=%ld "
-              "flush_max_us=%ld heap=%u",
+        reply("ZTV1 R stats frames=%lu frame_last_us=%ld frame_max_us=%ld flushes=%lu rows=%lu "
+              "flush_last_us=%ld flush_max_us=%ld heap=%u",
               (unsigned long)u.frames, (long)u.last_frame_us, (long)u.max_frame_us, (unsigned long)g.flushes,
               (unsigned long)g.rows, (long)g.last_us, (long)g.max_us,
               (unsigned)esp_get_free_heap_size());

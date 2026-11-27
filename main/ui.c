@@ -25,7 +25,6 @@
 #define PAD      8
 #define HEADER_H 30
 #define FOOTER_H 22
-#define LINE_H   10 /* row pitch of the 5x8 body font */
 
 #define CONTENT_Y0 (HEADER_H + 1)
 #define CONTENT_Y1 (GFX_H - FOOTER_H)
@@ -37,11 +36,13 @@
 #define RIGHT_X (ANIM_X + ANIM_S + 10)
 #define RIGHT_W (GFX_W - RIGHT_X - PAD)
 
-#define MSG_LINES 5
-#define MSG_Y     (CONTENT_Y0 + 20)
-#define PLAN_Y    112
-#define STATS_Y   (CONTENT_Y1 - 38)
-#define DONE_MSG_LINES 11
+#define MSG_Y (CONTENT_Y0 + 20)
+#define MSG_H 52  /* 5 ASCII lines, or 4 lines when the text contains CJK */
+#define CUR_H 24
+#define PLAN_Y 112
+#define STATS_Y (CONTENT_Y1 - 38)
+#define DONE_MSG_Y (CONTENT_Y0 + 68)
+#define TEXTW_MAX_LINES 16
 
 #define LINK_TIMEOUT_US   (12 * SECOND) /* no heartbeat for this long: bridge is gone */
 #define BOOT_SPLASH_US    INT64_C(1500000)
@@ -93,11 +94,12 @@ static const uint8_t SIN16[17] = {0, 10, 20, 29, 38, 47, 56, 63, 71, 77, 83, 88,
 
 /* A wrapped, optionally scrolling block of body text. */
 typedef struct {
-    int x, y, w;
+    int x, y, w, h; /* region in pixels; the line count follows from the pitch */
+    int pitch;
     int max_lines;
     char src[ZM_MSG_MAX + 1];     /* pristine copy, used to detect real changes */
-    char text[ZM_MSG_MAX + 1];    /* wrapped in place by gfx_wrap() */
-    const char *lines[DONE_MSG_LINES];
+    char text[ZM_MSG_MAX + 1];    /* wrapped in place by gfx_wrap_u8() */
+    const char *lines[TEXTW_MAX_LINES];
     int nlines;
     bool scrolling; /* the last line overflows and travels sideways */
     int travel;
@@ -117,6 +119,8 @@ static struct {
     bool force;
     char clock_drawn[ZM_CLK_MAX];
     textw_t msg, cur, done;
+    gfx_color_t led; /* colour the LED was last drawn with */
+    bool led_drawn;
     uint32_t frames;
     int32_t last_frame_us, max_frame_us;
 } s;
@@ -156,13 +160,13 @@ static const style_t *style(ds_t ds)
 
 /* ------------------------------------------------------------------ text widgets */
 
-static void textw_layout(textw_t *t, int x, int y, int w, int max_lines)
+static void textw_layout(textw_t *t, int x, int y, int w, int h)
 {
-    if (t->x != x || t->y != y || t->w != w || t->max_lines != max_lines) {
+    if (t->x != x || t->y != y || t->w != w || t->h != h) {
         t->x = x;
         t->y = y;
         t->w = w;
-        t->max_lines = max_lines;
+        t->h = h;
         t->valid = false;
     }
 }
@@ -174,11 +178,18 @@ static void textw_set(textw_t *t, const char *src, int64_t now)
     }
     strlcpy(t->src, src, sizeof(t->src));
     memcpy(t->text, t->src, strlen(t->src) + 1);
-    t->nlines = gfx_wrap(t->text, t->w, SMALL, t->lines, t->max_lines);
+    t->pitch = gfx_pitch_u8(t->src);
+    t->max_lines = t->h / t->pitch;
+    if (t->max_lines < 1) {
+        t->max_lines = 1;
+    } else if (t->max_lines > TEXTW_MAX_LINES) {
+        t->max_lines = TEXTW_MAX_LINES;
+    }
+    t->nlines = gfx_wrap_u8(t->text, t->w, t->lines, t->max_lines);
     t->scrolling = false;
     t->travel = 0;
     if (t->nlines == t->max_lines && t->nlines > 0) {
-        const int over = gfx_text_width(t->lines[t->nlines - 1], SMALL) - t->w;
+        const int over = gfx_text_width_u8(t->lines[t->nlines - 1]) - t->w;
         if (over > 0) {
             t->scrolling = true;
             t->travel = over + 4;
@@ -211,20 +222,20 @@ static int marquee_pos(int travel, int64_t elapsed)
 
 static void textw_draw_line(const textw_t *t, int i, int64_t now, gfx_color_t color)
 {
-    const int y = t->y + i * LINE_H;
+    const int y = t->y + i * t->pitch;
     if (!t->scrolling || i != t->nlines - 1) {
-        gfx_text(t->x, y, t->lines[i], SMALL, color);
+        gfx_text_u8(t->x, y, t->lines[i], color);
         return;
     }
-    gfx_fill_rect(t->x, y, t->w, 8, C_BG);
-    gfx_set_clip(t->x, y, t->w, 8);
-    gfx_text(t->x - marquee_pos(t->travel, now - t->anchor_us), y, t->lines[i], SMALL, color);
+    gfx_fill_rect(t->x, y, t->w, t->pitch, C_BG);
+    gfx_set_clip(t->x, y, t->w, t->pitch);
+    gfx_text_u8(t->x - marquee_pos(t->travel, now - t->anchor_us), y, t->lines[i], color);
     gfx_reset_clip();
 }
 
 static void textw_draw(const textw_t *t, int64_t now, gfx_color_t color)
 {
-    gfx_fill_rect(t->x, t->y, t->w, t->max_lines * LINE_H, C_BG);
+    gfx_fill_rect(t->x, t->y, t->w, t->h, C_BG);
     for (int i = 0; i < t->nlines; i++) {
         textw_draw_line(t, i, now, color);
     }
@@ -245,6 +256,19 @@ static void format_elapsed(unsigned sec, char *out, size_t cap)
     } else {
         snprintf(out, cap, "%02u:%02u", sec / 60, sec % 60);
     }
+}
+
+/* Centered label in the heading font, as long as it is plain ASCII. Anything
+ * else (a Chinese project name, say) goes through the mixed text renderer. */
+static void draw_label_center(int cx, int y, const char *s, gfx_color_t c)
+{
+    for (const char *p = s; *p; p++) {
+        if ((unsigned char)*p < 0x20 || (unsigned char)*p > 0x7E) {
+            gfx_text_u8_center(cx, y + 1, s, c);
+            return;
+        }
+    }
+    gfx_text_center(cx, y, s, &gfx_font_big, c);
 }
 
 static bool link_up(const zmodel_t *m, int64_t now)
@@ -297,6 +321,7 @@ static void draw_header(ds_t ds)
     gfx_fill_rect(0, 0, GFX_W, HEADER_H, C_PANEL);
     gfx_fill_rect(0, 0, 4, HEADER_H, style(ds)->color);
     gfx_text(12, (HEADER_H - 16) / 2, style(ds)->label, &s_big2, style(ds)->color);
+    s.led_drawn = false; /* the header background just covered the LED */
     gfx_fill_rect(0, CONTENT_Y0, GFX_W, 1, C_GRID);
     gfx_fill_rect(0, CONTENT_Y1, GFX_W, 1, C_GRID);
     gfx_fill_rect(0, CONTENT_Y1 + 1, GFX_W, GFX_H - CONTENT_Y1 - 1, C_BG);
@@ -308,7 +333,7 @@ static void draw_footer_text(const zmodel_t *m, bool live)
     const bool have_clock = live && m->clock[0] != '\0';
     gfx_fill_rect(PAD, y, GFX_W - 2 * PAD, 8, C_BG);
     gfx_text(PAD, y, have_clock ? m->clock : "--:--:--", SMALL, have_clock ? C_DIM : C_FAINT);
-    gfx_text_right(GFX_W - PAD, y, m->proj[0] ? m->proj : "zcode", SMALL, C_FG);
+    gfx_text_u8_right(GFX_W - PAD, y, m->proj[0] ? m->proj : "zcode", C_FG);
 }
 
 /*
@@ -422,12 +447,19 @@ static void draw_boot_spinner(int64_t now)
     }
 }
 
+/* Link LED in the header corner. Repainted only when its colour changes, so a
+ * steady screen pushes nothing over SPI from one frame to the next. */
 static void draw_led(ds_t ds, bool usb, bool link, int64_t now)
 {
     gfx_color_t c = link ? C_DONE : usb ? C_PERM : C_ERR;
     if (ds == DS_PERM && (now / 400000) % 2) {
         c = C_PANEL;
     }
+    if (s.led_drawn && c == s.led) {
+        return;
+    }
+    s.led = c;
+    s.led_drawn = true;
     gfx_fill_circle(GFX_W - 13, HEADER_H / 2, 4, c);
 }
 
@@ -486,7 +518,7 @@ static void content_active(const zmodel_t *m, ds_t ds, int64_t now)
     } else if (m->tool[0]) {
         gfx_text(RIGHT_X, CONTENT_Y0 + 2, m->tool, &gfx_font_big, style(ds)->color);
     }
-    textw_layout(&s.msg, RIGHT_X, MSG_Y, RIGHT_W, MSG_LINES);
+    textw_layout(&s.msg, RIGHT_X, MSG_Y, RIGHT_W, MSG_H);
     textw_set(&s.msg, m->msg, now);
     textw_draw(&s.msg, now, C_FG);
 
@@ -497,7 +529,7 @@ static void content_active(const zmodel_t *m, ds_t ds, int64_t now)
         gfx_text_right(GFX_W - PAD, PLAN_Y, label, SMALL, C_FG);
         gfx_frame_rect(PAD, PLAN_Y + 12, GFX_W - 2 * PAD, 10, C_GRID);
         draw_plan_bar(m, ds, now);
-        textw_layout(&s.cur, PAD, PLAN_Y + 26, GFX_W - 2 * PAD, 2);
+        textw_layout(&s.cur, PAD, PLAN_Y + 26, GFX_W - 2 * PAD, CUR_H);
         textw_set(&s.cur, m->cur, now);
         textw_draw(&s.cur, now, C_DIM);
     }
@@ -535,7 +567,7 @@ static void content_done(const zmodel_t *m, int64_t now)
     snprintf(buf, sizeof(buf), "TIME %s", t);
     gfx_text(RIGHT_X, CONTENT_Y0 + 13, buf, SMALL, C_DIM);
     draw_done_countdown(m, now);
-    textw_layout(&s.done, PAD, CONTENT_Y0 + 68, GFX_W - 2 * PAD, DONE_MSG_LINES);
+    textw_layout(&s.done, PAD, DONE_MSG_Y, GFX_W - 2 * PAD, CONTENT_Y1 - 4 - DONE_MSG_Y);
     textw_set(&s.done, m->msg, now);
     textw_draw(&s.done, now, C_FG);
 }
@@ -547,7 +579,7 @@ static void content_idle(const zmodel_t *m, ds_t ds)
     clear_content();
     draw_clock(m, ds);
     gfx_text_center(GFX_W / 2, 104, "PROJECT", SMALL, C_DIM);
-    gfx_text_center(GFX_W / 2, 114, m->proj[0] ? m->proj : "zcode", &gfx_font_big, C_FG);
+    draw_label_center(GFX_W / 2, 114, m->proj[0] ? m->proj : "zcode", C_FG);
     if (ds == DS_NOHOST) {
         gfx_text_center(GFX_W / 2, 146, "BRIDGE NOT RUNNING", SMALL, C_NOHOST);
         gfx_text_center(GFX_W / 2, 158, "python3 host/zcode_tv.py bridge", SMALL, C_FG);
