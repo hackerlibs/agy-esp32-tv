@@ -89,10 +89,29 @@ static void fail(const char *fmt, ...)
     exit(1);
 }
 
+/* Watches header pixels that no screen ever draws white into; a change means
+ * something wrote outside its clip or out of bounds. */
+static uint16_t g_probe[8];
+static uint16_t fb16(int x, int y)
+{
+    const uint8_t *fb = gfx_framebuffer();
+    return (uint16_t)((fb[(size_t)(y * GFX_W + x) * 2] << 8) | fb[(size_t)(y * GFX_W + x) * 2 + 1]);
+}
+
 static void render(const char *what)
 {
-    const long before = g_bytes_pushed;
+    static long frame_no;
+    frame_no++;
+    const uint16_t before[4] = {fb16(3, 2), fb16(3, 3), fb16(0, 4), fb16(2, 5)};
+    const long pushed_before = g_bytes_pushed;
     ui_render();
+    const uint16_t after[4] = {fb16(3, 2), fb16(3, 3), fb16(0, 4), fb16(2, 5)};
+    for (int i = 0; i < 4; i++) {
+        if (after[i] != before[i]) {
+            fprintf(stderr, "probe %d changed %04x -> %04x in frame %ld (%s), %ld bytes pushed\n", i,
+                    before[i], after[i], frame_no, what, g_bytes_pushed - pushed_before);
+        }
+    }
     g_frames++;
     const long pushed = g_bytes_pushed - before;
     if (pushed > g_worst_frame_bytes) {
