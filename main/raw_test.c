@@ -16,6 +16,7 @@
  * clock, set mode 3, MSB first, UPDATE, then pulse DC and shift one byte.
  */
 #include "esp_log.h"
+#include "esp_rom_gpio.h"
 #include "esp_rom_sys.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -54,7 +55,7 @@ static void gpio_low(int pin)
 static void pin_out(int pin, int signal)
 {
     REG_WRITE(GPIO_ENABLE_W1TS_REG, 1u << pin);
-    gpio_matrix_out(pin, signal, false, false);
+    esp_rom_gpio_connect_out_signal(pin, signal, false, false);
 }
 
 static void dump(const char *when)
@@ -87,7 +88,7 @@ static void spi_config(void)
     REG_WRITE(SPI_CTRL_REG(1), 7);
     REG_SET_BIT(SPI_USER_REG(1), SPI_USR_MOSI);
     REG_CLR_BIT(SPI_USER_REG(1), SPI_USR_MISO);
-    REG_WRITE(SPI_MOSI_DLEN_REG(1), 7); /* 8 bits */
+    REG_WRITE(SPI_MS_DLEN_REG(1), 7); /* 8 bits */
     spi_update();
 }
 
