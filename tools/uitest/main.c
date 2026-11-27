@@ -113,7 +113,7 @@ static void render(const char *what)
         }
     }
     g_frames++;
-    const long pushed = g_bytes_pushed - before;
+    const long pushed = g_bytes_pushed - pushed_before;
     if (pushed > g_worst_frame_bytes) {
         g_worst_frame_bytes = pushed;
     }
