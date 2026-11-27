@@ -89,13 +89,25 @@ static void fail(const char *fmt, ...)
     exit(1);
 }
 
-/* Watches header pixels that no screen ever draws white into; a change means
- * something wrote outside its clip or out of bounds. */
-static uint16_t g_probe[8];
+/* Watches header pixels across every render; used with the GFX_TRACE_PIXEL
+ * stage probes in ui.c to pinpoint stray framebuffer writes. */
 static uint16_t fb16(int x, int y)
 {
     const uint8_t *fb = gfx_framebuffer();
     return (uint16_t)((fb[(size_t)(y * GFX_W + x) * 2] << 8) | fb[(size_t)(y * GFX_W + x) * 2 + 1]);
+}
+
+/* ui.c calls this between render stages; print only when the watched pixel changes. */
+void ztv_phase(const char *phase)
+{
+    static uint16_t last;
+    static bool have;
+    const uint16_t v = fb16(3, 2);
+    if (!have || v != last) {
+        fprintf(stderr, "phase %-16s fb(3,2)=%04x\n", phase, v);
+        last = v;
+        have = true;
+    }
 }
 
 static void render(const char *what)
@@ -241,8 +253,9 @@ int main(int argc, char **argv)
     run(1.0, "tool");
     save("tool");
 
-    push(ZST_TOOL, "Edit", "// more than one screenful of text: the tail of this line has to scroll "
-                           "sideways so it can be read, ping-ponging with a pause at each end",
+    push(ZST_TOOL, "Edit", "Long single line that cannot wrap because it has no spaces at all, "
+                           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa so the tail has to scroll sideways "
+                           "to be readable at all, ping-ponging with a pause at each end",
          "Render the status screens offscreen and check the layout for every state", 11, 0, 97, 3, 5);
     run(2.6, "tool with marquee");
     save("tool_marquee");

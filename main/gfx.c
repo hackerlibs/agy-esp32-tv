@@ -56,17 +56,21 @@ static void mark_rows(int y0, int y1)
 
 static inline void put_px(int x, int y, gfx_color_t c)
 {
+    /* The framebuffer is indexed with absolute coordinates; the clip only
+     * decides whether the pixel is visible. (Indexing with clip-relative
+     * coordinates here once made every drawing inside a non-zero-origin clip
+     * corrupt the top-left corner of the framebuffer.) */
+    const int cx = x - s_clip_x;
+    const int cy = y - s_clip_y;
+    if ((unsigned)cx >= (unsigned)s_clip_w || (unsigned)cy >= (unsigned)s_clip_h) {
+        return;
+    }
+    /* Framebuffer is big-endian RGB565 so rows can go to the panel untouched. */
 #ifdef GFX_TRACE_PIXEL
     if (x == s_trace_x && y == s_trace_y) {
         gfx_trace_pixel(x, y, "put_px");
     }
 #endif
-    x -= s_clip_x;
-    y -= s_clip_y;
-    if ((unsigned)x >= (unsigned)s_clip_w || (unsigned)y >= (unsigned)s_clip_h) {
-        return;
-    }
-    /* Framebuffer is big-endian RGB565 so rows can go to the panel untouched. */
     s_fb[y][x] = __builtin_bswap16(c);
 }
 

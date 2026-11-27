@@ -15,6 +15,11 @@
 #include <string.h>
 
 #include "gfx.h"
+#ifdef GFX_TRACE_PIXEL
+/* Offscreen harness hook: called between the stages of ui_render() so the
+ * test can pinpoint when a framebuffer byte changes. */
+extern void ztv_phase(const char *phase);
+#endif
 #include "port.h"
 #include "sdkconfig.h"
 #include "version.h"
@@ -718,7 +723,13 @@ void ui_render(void)
         s.force = true; /* the panel remapped its axes: push the whole frame again */
     }
 
+#ifdef GFX_TRACE_PIXEL
+    ztv_phase("after-model");
+#endif
     const ds_t ds = derive_state(&m, now);
+#ifdef GFX_TRACE_PIXEL
+    ztv_phase("after-derive");
+#endif
     if (ds != s.ds || s.force) {
         s.ds = ds;
         s.force = false;
@@ -729,6 +740,9 @@ void ui_render(void)
         s.version = m.version;
         strlcpy(s.clock_drawn, m.clock, sizeof(s.clock_drawn));
         s.second = now / SECOND;
+#ifdef GFX_TRACE_PIXEL
+        ztv_phase("after-fullredraw");
+#endif
     } else {
         if (m.version != s.version) {
             s.version = m.version;
@@ -743,8 +757,14 @@ void ui_render(void)
             s.second = now / SECOND;
             draw_timers(&m, ds, now);
         }
+#ifdef GFX_TRACE_PIXEL
+        ztv_phase("after-updates");
+#endif
     }
     draw_dynamic(&m, ds, now);
+#ifdef GFX_TRACE_PIXEL
+    ztv_phase("after-dynamic");
+#endif
     gfx_flush();
 
     s.frames++;

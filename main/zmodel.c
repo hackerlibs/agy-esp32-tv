@@ -40,6 +40,32 @@ void zmodel_get(zmodel_t *out)
     z_unlock();
 }
 
+/* Heartbeat frames re-send the same status; only real changes may trigger a
+ * panel repaint, so compare everything except the clock (which has its own
+ * cheap redraw path in the UI). */
+static bool frame_changed(const zframe_t *f)
+{
+    const zframe_t cur = {
+        .state = s_model.state,
+        .tool = s_model.tool,
+        .msg = s_model.msg,
+        .cur = s_model.cur,
+        .proj = s_model.proj,
+        .sid = s_model.sid,
+        .date = s_model.date,
+        .tool_count = s_model.tool_count,
+        .fail_count = s_model.fail_count,
+        .todo_done = s_model.todo_done,
+        .todo_total = s_model.todo_total,
+    };
+    return f->state != cur.state || (f->tool && strcmp(f->tool, cur.tool) != 0) ||
+           (f->msg && strcmp(f->msg, cur.msg) != 0) || (f->cur && strcmp(f->cur, cur.cur) != 0) ||
+           (f->proj && strcmp(f->proj, cur.proj) != 0) || (f->sid && strcmp(f->sid, cur.sid) != 0) ||
+           (f->date && strcmp(f->date, cur.date) != 0) || f->tool_count != cur.tool_count ||
+           f->fail_count != cur.fail_count || f->todo_done != cur.todo_done ||
+           f->todo_total != cur.todo_total;
+}
+
 void zmodel_apply(const zframe_t *frame, int64_t now_us)
 {
     z_lock();
@@ -61,7 +87,9 @@ void zmodel_apply(const zframe_t *frame, int64_t now_us)
     s_model.elapsed_s = frame->elapsed_s > 0 ? (unsigned)frame->elapsed_s : 0;
     s_model.elapsed_ref_us = now_us;
     s_model.last_frame_us = now_us;
-    s_model.version++;
+    if (frame_changed(frame)) {
+        s_model.version++;
+    }
     z_unlock();
 }
 
