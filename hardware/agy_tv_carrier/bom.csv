@@ -3,10 +3,10 @@ BZ1,1,12mm-PASSIVE,Buzzer_12x9.5mm_P7.62mm,C95299,12mm 3.3V Passive Electromagne
 C1,1,10uF,CP_Radial_D5.0mm_P2.54mm,C134785,10uF 16V Electrolytic (3V3 Bulk)
 C2,1,0.1uF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF 50V Ceramic (3V3 Decoupling)
 C3,1,0.1uF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF 50V Ceramic (LCD VCC Decoupling)
-C_AD,1,0.1uF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF (104) ADC Keypad Filter Cap
-C_EA,1,0.01uF,C_Disc_D5.0mm_P5.08mm,C192574,0.01uF (103) Ceramic EC11_A Filter
-C_EB,1,0.01uF,C_Disc_D5.0mm_P5.08mm,C192574,0.01uF (103) Ceramic EC11_B Filter
-C_ESW,1,0.1uF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF (104) Ceramic EC11_SW Debounce
+C_AD,1,100nF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF (104) ADC Keypad Filter Cap
+C_EA,1,10nF,C_Disc_D5.0mm_P5.08mm,C192574,0.01uF (103) Ceramic EC11_A Filter
+C_EB,1,10nF,C_Disc_D5.0mm_P5.08mm,C192574,0.01uF (103) Ceramic EC11_B Filter
+C_ESW,1,100nF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF (104) Ceramic EC11_SW Debounce
 D1,1,1N4148,D_DO-35_P10.16mm,C2128,1N4148 DO-35 Flyback Diode (Cathode to 3V3!)
 EC11,1,EC11E-SW,RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm,C470609,Alps EC11E Vertical Rotary Encoder w/ Push Switch
 JP_B,1,EC11B-JMP,PinHeader_1x02_P2.54mm,C2337,1x2P 2.54mm Jumper (Short to connect EC11_B to GPIO20)
@@ -16,7 +16,7 @@ J_LCD,1,ST7789-8P,PinHeader_1x08_P2.54mm,C2883692,"1x8P 2.54mm Female Header (1.
 J_RTC,1,DS3231-4P,PinHeader_1x04_P2.54mm,C2883690,1x4P 2.54mm Female Header (DS3231 RTC Module)
 J_UART,1,USB-TTL-3P,PinHeader_1x03_P2.54mm,C2337,1x3P 2.54mm Male Header (USB-TTL 3.3V Debug)
 Q1,1,S8050,TO-92_Inline_Wide_P2.54mm,C2146,S8050 NPN TO-92 Buzzer Driver (E-B-C)
-R_AD0,1,10k 1%,R_Axial_DIN0207_L6.3mm_P10.16mm,C61270,10k 1% ADC Keypad Top Pull-up
+R_AD0,1,10k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61270,10k 1% ADC Keypad Top Pull-up
 R_AD1,1,2.2k 1%,R_Axial_DIN0207_L6.3mm_P10.16mm,C61269,2.2k 1% 1/4W ADC Ladder Resistor (stand-up 5.08mm pitch)
 R_AD2,1,5.6k 1%,R_Axial_DIN0207_L6.3mm_P10.16mm,C61272,5.6k 1% 1/4W ADC Ladder Resistor (stand-up 5.08mm pitch)
 R_AD3,1,12k 1%,R_Axial_DIN0207_L6.3mm_P10.16mm,C61271,12k 1% 1/4W ADC Ladder Resistor (stand-up 5.08mm pitch)
