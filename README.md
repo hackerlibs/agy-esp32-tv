@@ -101,9 +101,13 @@ python3 host/agy_tv.py bridge --daemon
 # 远程 RFC2217 桥接示例（也可通过环境变量 AGY_TV_PORT 指定）：
 # python3 host/agy_tv.py bridge --port 'rfc2217://127.0.0.1:4000?ign_set_control' --daemon
 
-# 3. 查看桥接状态与日志
+# 3. 查看桥接状态、日志，或在线调节背光亮度（无需停止桥接）
 python3 host/agy_tv.py status
 tail -f /tmp/agy-tv.log
+python3 host/agy_tv.py bl 80         # 设置背光亮度 0..100%（实时生效）
+python3 host/agy_tv.py bl            # 查询当前亮度、原始 PWM 占空比与极性
+python3 host/agy_tv.py bl --raw 50   # 直接设置 8-bit LEDC 原始占空比 (0..256)
+python3 host/agy_tv.py bl --inv 1    # 切换背光极性（1=低电平亮/默认，0=高电平亮）
 ```
 
 - Hooks 严格遵循 AGY `hooks.json` 契约：`PreToolUse` 返回 `{"decision": "allow"}`（交给默认权限策略，**绝不**绕过授权确认），`Stop` 返回 `{"decision": "stop"}`，其余返回 `{}`，永远 exit 0，桥接未开或板子未插都不会阻塞 AGY。
@@ -209,7 +213,7 @@ ZTV1 S st=<idle|think|tool|perm|err|done> tool="run_command" n=7 f=1 el=42 todo=
       cur="当前步骤" msg="命令或提示文本" proj="esp32_tv" sid="a3653af3"
       clk="14:02:11" date="2026-11-27 FRI"
       model="gemini-4-neon-high" inv=4 step=18 ctx=89400 out=3720 sub=1 bg=1
-ZTV1 C ping | stats | get | bl | demo=<0|1> | rot=<0..3> | reboot
+ZTV1 C ping | stats | get | bl[=<0..100>] | bl_raw=<0..256> | bl_inv=<0|1> | demo=<0|1> | rot=<0..3> | reboot
 ```
 
 设备 → 主机：`ZTV1 R hello|pong|state ...|stats ...|bl ...`。`msg/cur/proj` 为 UTF-8，设备用 GB2312 字库渲染（7445 字，~190KB 在 flash，不占 RAM）；字库外的字符（emoji 等）跳过。

@@ -26,6 +26,12 @@ static const char *TAG = "main";
 #define LCD_INVERT false
 #endif
 
+#ifdef CONFIG_ZTV_LCD_BL_ACTIVE_LOW
+#define LCD_BL_ACTIVE_LOW true
+#else
+#define LCD_BL_ACTIVE_LOW false
+#endif
+
 void app_main(void)
 {
     ESP_LOGI(TAG, "AGY TV %s booting", ZTV_VERSION);
@@ -46,6 +52,7 @@ void app_main(void)
         .invert = LCD_INVERT,
         .bl_gpio = CONFIG_ZTV_LCD_PIN_BL,
         .bl_brightness = CONFIG_ZTV_LCD_BL_BRIGHTNESS,
+        .bl_active_low = LCD_BL_ACTIVE_LOW,
     };
     ESP_ERROR_CHECK(panel_init(&panel));
 

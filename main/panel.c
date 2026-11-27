@@ -32,6 +32,8 @@ static const uint8_t MADCTL[4] = {0x00, 0x60, 0xC0, 0xA0};
 
 static const char *TAG = "panel";
 static bool s_bl_ready;
+static bool s_bl_active_low;
+static uint8_t s_bl_percent;
 static spi_device_handle_t s_spi;
 static panel_config_t s_cfg;
 static uint8_t s_rotation;
@@ -166,6 +168,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
         }
         if (err == ESP_OK) {
             s_bl_ready = true;
+            s_bl_active_low = cfg->bl_active_low;
             err = panel_set_brightness(cfg->bl_brightness);
         }
         if (err != ESP_OK) {
@@ -289,6 +292,26 @@ esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const
     return err;
 }
 
+esp_err_t panel_set_backlight_raw(uint32_t duty)
+{
+    if (!s_bl_ready) {
+        return ESP_ERR_INVALID_STATE;
+    }
+    if (duty > 256u) {
+        duty = 256u;
+    }
+    /* Plain set + update: ledc_set_duty_and_update() needs the fade service installed. */
+    esp_err_t err = ledc_set_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL, duty);
+    if (err == ESP_OK) {
+        err = ledc_update_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL);
+    }
+    if (err == ESP_OK) {
+        const uint32_t eff = s_bl_active_low ? (256u - duty) : duty;
+        s_bl_percent = (uint8_t)((eff * 100u + 128u) / 256u);
+    }
+    return err;
+}
+
 esp_err_t panel_set_brightness(uint8_t percent)
 {
     if (!s_bl_ready) {
@@ -297,13 +320,23 @@ esp_err_t panel_set_brightness(uint8_t percent)
     if (percent > 100) {
         percent = 100;
     }
-    const uint32_t duty = (255u * percent + 50u) / 100u;
-    /* Plain set + update: ledc_set_duty_and_update() needs the fade service installed. */
+    s_bl_percent = percent;
+    const uint32_t raw = (256u * percent + 50u) / 100u;
+    const uint32_t duty = s_bl_active_low ? (256u - raw) : raw;
     esp_err_t err = ledc_set_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL, duty);
     if (err == ESP_OK) {
         err = ledc_update_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL);
     }
     return err;
+}
+
+esp_err_t panel_set_backlight_active_low(bool active_low)
+{
+    if (!s_bl_ready) {
+        return ESP_ERR_INVALID_STATE;
+    }
+    s_bl_active_low = active_low;
+    return panel_set_brightness(s_bl_percent);
 }
 
 int panel_backlight_duty(void)
@@ -312,6 +345,19 @@ int panel_backlight_duty(void)
         return -1;
     }
     return (int)ledc_get_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL);
+}
+
+int panel_backlight_percent(void)
+{
+    if (!s_bl_ready) {
+        return -1;
+    }
+    return (int)s_bl_percent;
+}
+
+bool panel_backlight_active_low(void)
+{
+    return s_bl_active_low;
 }
 
 esp_err_t panel_set_rotation(uint8_t rotation)

@@ -97,8 +97,16 @@ menu "AGY TV (ESP32 status display)"
 
         config ZTV_LCD_BL_BRIGHTNESS
             int "Backlight brightness (0-100 %)"
-            default 100
-            range 1 100
+            default 80
+            range 0 100
+
+        config ZTV_LCD_BL_ACTIVE_LOW
+            bool "Backlight PWM is active-low (PNP / P-MOSFET)"
+            default y
+            help
+               The stock SmallDesktopDisplay ESP32-C3 board drives GPIO1 through
+               an active-low transistor (duty 0 = 100% bright, duty 256 = off).
+               Can also be changed at runtime with "ZTV1 C bl_inv=0|1".
 
     endmenu
 

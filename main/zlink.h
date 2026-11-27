@@ -11,7 +11,8 @@
  *                    [model="<str>" inv=<int> step=<int> ctx=<int> out=<int> sub=<int> bg=<int>]
  *                    (every frame is a complete snapshot; unknown keys are ignored)
  *
- *   host -> device   ZTV1 C ping | demo=<0|1> | rot=<0..3> | stats | get | bl | reboot
+ *   host -> device   ZTV1 C ping | demo=<0|1> | rot=<0..3> | stats | get | bl[=<0..100>]
+ *                    | bl_raw=<0..256> | bl_inv=<0|1> | reboot
  *   device -> host   ZTV1 R <text>
  */
 void zlink_start(void);

@@ -230,8 +230,34 @@ static void handle_command(char *p)
               (unsigned long)g.rows, (long)g.last_us, (long)g.max_us,
               (unsigned)esp_get_free_heap_size());
     } else if (strcmp(key, "bl") == 0) {
-        /* Backlight diagnostics, so the host can confirm the PWM is really applied. */
-        reply("ZTV1 R bl pin=%d duty=%d", CONFIG_ZTV_LCD_PIN_BL, panel_backlight_duty());
+        /* Query or set backlight brightness (0..100 %). */
+        if (value[0] != '\0') {
+            int pct = atoi(value);
+            if (pct < 0) {
+                pct = 0;
+            } else if (pct > 100) {
+                pct = 100;
+            }
+            panel_set_brightness((uint8_t)pct);
+        }
+        reply("ZTV1 R bl pin=%d pct=%d duty=%d inv=%d", CONFIG_ZTV_LCD_PIN_BL, panel_backlight_percent(),
+              panel_backlight_duty(), panel_backlight_active_low() ? 1 : 0);
+    } else if (strcmp(key, "bl_raw") == 0) {
+        /* Set raw 8-bit LEDC PWM duty directly (0..256). */
+        int duty = atoi(value);
+        if (duty < 0) {
+            duty = 0;
+        } else if (duty > 256) {
+            duty = 256;
+        }
+        panel_set_backlight_raw((uint32_t)duty);
+        reply("ZTV1 R bl pin=%d pct=%d duty=%d inv=%d", CONFIG_ZTV_LCD_PIN_BL, panel_backlight_percent(),
+              panel_backlight_duty(), panel_backlight_active_low() ? 1 : 0);
+    } else if (strcmp(key, "bl_inv") == 0) {
+        /* Toggle backlight active-low polarity (1=active-low, 0=active-high). */
+        panel_set_backlight_active_low(atoi(value) != 0);
+        reply("ZTV1 R bl pin=%d pct=%d duty=%d inv=%d", CONFIG_ZTV_LCD_PIN_BL, panel_backlight_percent(),
+              panel_backlight_duty(), panel_backlight_active_low() ? 1 : 0);
     } else if (strcmp(key, "reboot") == 0) {
         reply("ZTV1 R rebooting");
         vTaskDelay(pdMS_TO_TICKS(50));

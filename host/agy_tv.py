@@ -3,7 +3,8 @@
 
     agy_tv.py bridge [--port /dev/ttyACM0] [--daemon] [--no-watch] [--dry-run]
     agy_tv.py hook                        # runs from AGY hooks.json, JSON on stdin/stdout
-    agy_tv.py send "ZTV1 C ping"          # raw line to the device, for testing
+    agy_tv.py bl [0..100] [--raw 0..256] [--inv 0|1]  # query or adjust backlight live
+    agy_tv.py send "ZTV1 C ping"          # raw line to the device (works via live bridge too)
     agy_tv.py status                      # is the bridge running?
 
 The bridge owns the serial port for the whole session: hooks are short-lived
@@ -672,6 +673,8 @@ class Bridge:
         self.last_hook_ts = 0.0
         self.last_watch_scan = 0.0
         self.last_reconnect_try = 0.0
+        self.pending_reply_to = None
+        self.pending_reply_deadline = 0.0
 
     def get_session(self, cid, proj):
         key = cid or "default"
@@ -1062,7 +1065,15 @@ class Bridge:
             try:
                 data, _ = self.sock.recvfrom(65536)
                 try:
-                    self.handle_event(json.loads(data.decode("utf-8")))
+                    msg = json.loads(data.decode("utf-8"))
+                    if isinstance(msg, dict) and msg.get("cmd"):
+                        raw_cmd = str(msg["cmd"]).strip()
+                        self.pending_reply_to = msg.get("reply_to") or None
+                        self.pending_reply_deadline = time.time() + 2.5 if self.pending_reply_to else 0.0
+                        log("cmd: %s" % clip(raw_cmd, 120))
+                        self.send(raw_cmd)
+                    else:
+                        self.handle_event(msg)
                 except (ValueError, UnicodeDecodeError) as exc:
                     log("bad hook payload: %s" % exc)
             except socket.timeout:
@@ -1087,9 +1098,20 @@ class Bridge:
                             line = raw.decode("utf-8", "replace").strip()
                             if line:
                                 log("dev: %s" % clip(line, 160))
+                                if self.pending_reply_to and line.startswith(PROTO + " R "):
+                                    try:
+                                        rs = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+                                        rs.sendto(line.encode("utf-8"), self.pending_reply_to)
+                                        rs.close()
+                                    except OSError:
+                                        pass
+                                    self.pending_reply_to = None
                 except Exception as exc:
                     log("serial read error (%s), will reconnect" % exc)
                     self.close_serial()
+
+            if self.pending_reply_to and time.time() > self.pending_reply_deadline:
+                self.pending_reply_to = None
 
             self.poll_passive_transcript()
             if self.session.state != "done":  # DONE keeps its own expiry timer below
@@ -1171,14 +1193,52 @@ def status_main():
     return 0
 
 
-def send_main(line, port=None):
-    """One raw line to the device, for testing. Refuses while the bridge owns the port."""
+def bridge_is_running():
     if os.path.exists(PID_PATH):
         try:
             os.kill(int(open(PID_PATH).read().strip()), 0)
-            sys.exit("bridge is running and owns the port; stop it first (kill $(cat %s))" % PID_PATH)
+            return os.path.exists(SOCKET_PATH)
         except (ValueError, ProcessLookupError, PermissionError):
             pass
+    return False
+
+
+def send_via_bridge(line, timeout=2.5):
+    """Send a raw device command through the running bridge without disconnecting."""
+    reply_path = "/tmp/agy-tv.reply.%d.sock" % os.getpid()
+    try:
+        os.unlink(reply_path)
+    except OSError:
+        pass
+    rs = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    try:
+        rs.bind(reply_path)
+        os.chmod(reply_path, 0o666)
+        rs.settimeout(timeout)
+        payload = json.dumps({"cmd": line, "reply_to": reply_path}).encode("utf-8")
+        tx = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+        tx.sendto(payload, SOCKET_PATH)
+        tx.close()
+        try:
+            data, _ = rs.recvfrom(4096)
+            return data.decode("utf-8", "replace").strip()
+        except socket.timeout:
+            return "(sent via bridge; no reply within %.1fs -- check /tmp/agy-tv.log)" % timeout
+    finally:
+        rs.close()
+        try:
+            os.unlink(reply_path)
+        except OSError:
+            pass
+
+
+def send_main(line, port=None):
+    """Send one raw command line to the device (routes through live bridge if running)."""
+    if bridge_is_running() and port is None:
+        print(send_via_bridge(line))
+        return 0
+    if bridge_is_running():
+        sys.exit("bridge is running and owns the port; omit --port to route via bridge, or stop it first")
     import serial
 
     port = normalize_port(port or find_port())
@@ -1207,6 +1267,44 @@ def send_main(line, port=None):
     return 0
 
 
+def bl_main(argv):
+    """Query or adjust the ESP32 backlight live (0..100%, --raw 0..256, --inv 0|1)."""
+    port = None
+    rest = list(argv)
+    if "--port" in rest:
+        idx = rest.index("--port")
+        if idx + 1 >= len(rest):
+            sys.exit("--port requires a device path")
+        port = rest[idx + 1]
+        rest = rest[:idx] + rest[idx + 2:]
+
+    if not rest:
+        return send_main("ZTV1 C bl", port=port)
+    if rest[0] == "--raw":
+        if len(rest) < 2:
+            sys.exit("usage: agy_tv.py bl --raw <0..256>")
+        val = max(0, min(256, int(rest[1])))
+        return send_main("ZTV1 C bl_raw=%d" % val, port=port)
+    if rest[0] == "--inv":
+        if len(rest) < 2:
+            sys.exit("usage: agy_tv.py bl --inv <0|1>")
+        val = 1 if int(rest[1]) != 0 else 0
+        return send_main("ZTV1 C bl_inv=%d" % val, port=port)
+    if rest[0] in ("-h", "--help"):
+        print("usage:\n"
+              "  agy_tv.py bl               # query brightness, duty, polarity\n"
+              "  agy_tv.py bl <0..100>      # set brightness percentage\n"
+              "  agy_tv.py bl --raw <0..256># set raw 8-bit LEDC PWM duty\n"
+              "  agy_tv.py bl --inv <0|1>   # toggle active-low polarity (1=active-low)")
+        return 0
+    try:
+        pct = int(rest[0].rstrip("%"))
+    except ValueError:
+        sys.exit("expected brightness 0..100 (or --raw / --inv), got: %s" % rest[0])
+    pct = max(0, min(100, pct))
+    return send_main("ZTV1 C bl=%d" % pct, port=port)
+
+
 def main():
     argv = sys.argv[1:]
     cmd = argv[0] if argv else "bridge"
@@ -1229,6 +1327,8 @@ def main():
             os.setsid()
         bridge.run()
         return 0
+    if cmd in ("bl", "brightness"):
+        return bl_main(argv[1:])
     if cmd == "send":
         port = None
         rest = argv[1:]
