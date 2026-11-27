@@ -368,18 +368,11 @@ def status_main():
 
 
 def send_main(line):
-    """One raw line to the device through the bridge, for testing."""
-    try:
-        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        # datagram sockets cannot return errors; use a tiny stream shim via the log
-        s.close()
-    except OSError:
-        pass
-    # simplest reliable path: talk to the serial port only if the bridge is off
+    """One raw line to the device, for testing. Refuses while the bridge owns the port."""
     if os.path.exists(PID_PATH):
         try:
             os.kill(int(open(PID_PATH).read().strip()), 0)
-            sys.exit("bridge is running and owns the port; stop it first or use hook/send events")
+            sys.exit("bridge is running and owns the port; stop it first (kill $(cat %s))" % PID_PATH)
         except (ValueError, ProcessLookupError, PermissionError):
             pass
     import serial
@@ -388,8 +381,8 @@ def send_main(line):
     if not port:
         sys.exit("no ESP32 serial port found")
     ser = serial.Serial(port, 115200, timeout=0.5, dsrdtr=False, rtscts=False)
-    ser.dtr = True
-    ser.rts = True
+    ser.dtr = True   # safe "run" line states
+    ser.rts = True   # (opening resets the chip once)
     time.sleep(0.3)
     ser.reset_input_buffer()
     ser.write((line + "\n").encode("utf-8"))

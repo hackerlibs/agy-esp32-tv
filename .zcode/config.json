@@ -1,0 +1,91 @@
+{
+  "hooks": {
+    "events": {
+      "SessionStart": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "UserPromptSubmit": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "PreToolUse": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "PermissionRequest": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "PostToolUse": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "PostToolUseFailure": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ],
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 /Users/xlisp/CppPro/esp32_tv/host/zcode_tv.py hook",
+              "timeout": 5,
+              "statusMessage": "ZCode TV status display"
+            }
+          ]
+        }
+      ]
+    },
+    "enabled": true
+  }
+}
