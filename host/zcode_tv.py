@@ -205,6 +205,16 @@ class Bridge:
         ser.reset_input_buffer()
         self.ser = ser
 
+    def probe_device(self):
+        """One ping after start-up, so the log shows the device is alive."""
+        deadline = time.time() + 4  # the panel takes ~1.3 s to boot
+        while time.time() < deadline:
+            self.send("ZTV1 C ping")
+            time.sleep(1.0)
+            if self.ser.in_waiting:
+                return True
+        return False
+
     def send(self, line):
         try:
             self.ser.write((line + "\n").encode("utf-8"))
@@ -334,9 +344,10 @@ class Bridge:
                 pass
         self.open_serial()
         self.open_socket()
+        alive = self.probe_device()
+        log("bridge up on %s, device %s" % (self.port, "alive" if alive else "NOT RESPONDING"))
         with open(PID_PATH, "w") as f:
             f.write(str(os.getpid()))
-        log("bridge up on %s" % self.port)
         try:
             self.pump()
         except KeyboardInterrupt:
