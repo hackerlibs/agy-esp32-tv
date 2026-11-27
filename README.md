@@ -14,6 +14,9 @@ AGY hooks (6 种事件) ──► host/agy_tv.py hook ──► bridge 常驻进
 
 离屏渲染的全部 26 个界面见 `tools/uitest/run.sh` 生成的拼图（含中文界面），默认输出到 `/tmp/agy-tv-ui/sheet.png`。
 
+> **想从零 DIY 这台设备 / 学习用万用表、示波器、USB-TTL、逻辑分析仪调试 ESP32 彩屏？**
+> 详见 **[docs/ 硬件与调试文档中心](./docs/README.md)**（含 ESP32-C3 原理、屏幕选型与背光电路、四类仪器实战排障与 6 步点亮路线）。
+
 ## 显示内容一览
 
 - **顶部状态栏**：`AGY TV` / `IDLE` / `THINKING` / `RUNNING` / `WAIT INPUT`（如 `ask_question`）/ `ERROR` / `DONE` / `NO HOST` / `NO USB` + 右上角链路状态 LED。
