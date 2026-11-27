@@ -106,13 +106,18 @@ esp_err_t panel_init(const panel_config_t *cfg)
 {
     s_cfg = *cfg;
     s_rotation = cfg->rotation & 3;
+    /* Bring-up test knob: some wirings may have DC and RST the other way round. */
+    const int dc_gpio = cfg->swap_dc_rst ? cfg->rst_gpio : cfg->dc_gpio;
+    const int rst_gpio = cfg->swap_dc_rst ? cfg->dc_gpio : cfg->rst_gpio;
+    s_cfg.dc_gpio = dc_gpio;
+    s_cfg.rst_gpio = rst_gpio;
 
     uint64_t mask = 0;
-    if (cfg->dc_gpio >= 0) {
-        mask |= 1ULL << cfg->dc_gpio;
+    if (dc_gpio >= 0) {
+        mask |= 1ULL << dc_gpio;
     }
-    if (cfg->rst_gpio >= 0) {
-        mask |= 1ULL << cfg->rst_gpio;
+    if (rst_gpio >= 0) {
+        mask |= 1ULL << rst_gpio;
     }
     if (cfg->cs_gpio >= 0) {
         mask |= 1ULL << cfg->cs_gpio;
@@ -127,8 +132,8 @@ esp_err_t panel_init(const panel_config_t *cfg)
         };
         gpio_config(&io);
     }
-    if (cfg->dc_gpio >= 0) {
-        gpio_set_level(cfg->dc_gpio, 1);
+    if (dc_gpio >= 0) {
+        gpio_set_level(dc_gpio, 1);
     }
     cs_release();
 
@@ -159,7 +164,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
     }
 
     /* Same reset pulse as the stock firmware: release, 20 ms low, 150 ms settle. */
-    if (cfg->rst_gpio >= 0) {
+    if (rst_gpio >= 0 && !cfg->skip_reset) {
         gpio_set_level(cfg->rst_gpio, 1);
         delay_ms(5);
         gpio_set_level(cfg->rst_gpio, 0);
@@ -213,6 +218,17 @@ esp_err_t panel_init(const panel_config_t *cfg)
              cfg->v_res, cfg->sclk_gpio, cfg->mosi_gpio, cfg->dc_gpio, cfg->rst_gpio, cfg->cs_gpio,
              (unsigned long)cfg->pclk_hz, s_rotation);
     return ESP_OK;
+}
+
+esp_err_t panel_free(void)
+{
+    if (s_spi == NULL) {
+        return ESP_OK;
+    }
+    esp_err_t err = spi_bus_remove_device(s_spi);
+    s_spi = NULL;
+    esp_err_t err2 = spi_bus_free(SPI2_HOST);
+    return err == ESP_OK ? err2 : err;
 }
 
 esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t *pixels)

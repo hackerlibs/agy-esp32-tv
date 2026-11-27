@@ -16,6 +16,10 @@
 #include "zlink.h"
 #include "zmodel.h"
 
+#ifdef CONFIG_ZTV_TEST_BARS
+void bars_test_run(void);
+#endif
+
 static const char *TAG = "main";
 
 /* Unset Kconfig booleans are simply not defined in sdkconfig.h. */
@@ -28,6 +32,10 @@ static const char *TAG = "main";
 void app_main(void)
 {
     ESP_LOGI(TAG, "ZCode TV %s booting", ZTV_VERSION);
+
+#ifdef CONFIG_ZTV_TEST_BARS
+    bars_test_run(); /* never returns */
+#endif
 
     z_port_init();
 

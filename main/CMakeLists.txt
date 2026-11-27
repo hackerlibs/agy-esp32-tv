@@ -1,6 +1,7 @@
 idf_component_register(
     SRCS
         "main.c"
+        "bars_test.c"
         "panel.c"        # SPI panel driver (ESP-IDF)
         "gfx.c"          # framebuffer drawing, plain C
         "zmodel.c"       # shared status model, plain C

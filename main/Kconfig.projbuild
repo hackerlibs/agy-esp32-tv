@@ -86,6 +86,15 @@ menu "ZCode TV (ESP32 status display)"
             default 30
             range 5 3600
 
+        config ZTV_TEST_BARS
+            bool "Bring-up test: cycle panel configs showing color bars"
+            default n
+            help
+               Instead of the status UI, cycle SPI mode / clock / reset variants,
+               each filling the panel with its own color, and log the phase on the
+               console. For verifying a panel whose wiring came from reverse
+               engineering; watch the screen and the serial log side by side.
+
     endmenu
 
 endmenu

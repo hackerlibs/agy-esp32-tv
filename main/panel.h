@@ -28,7 +28,11 @@ typedef struct {
     uint8_t spi_mode;
     uint8_t rotation; /* 0..3, same meaning as TFT_eSPI setRotation() */
     bool invert;      /* send INVON, needed by IPS panels */
+    bool skip_reset;  /* bring-up test: do not pulse the reset line */
+    bool swap_dc_rst; /* bring-up test: try DC and RST the other way round */
 } panel_config_t;
+
+esp_err_t panel_free(void); /* release the bus so panel_init() can run again */
 
 esp_err_t panel_init(const panel_config_t *cfg);
 
