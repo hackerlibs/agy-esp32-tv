@@ -4,7 +4,6 @@ sdkconfig
 sdkconfig.old
 
 # Flash dump of the stock firmware: contains the Wi-Fi credentials, keep it local
-backup/
 
 __pycache__/
 *.pyc
