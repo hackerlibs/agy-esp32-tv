@@ -34,6 +34,9 @@ typedef struct {
 
 esp_err_t panel_set_brightness(uint8_t percent);
 
+/* Duty currently applied to the backlight, 0-255; -1 if there is no backlight pin. */
+int panel_backlight_duty(void);
+
 esp_err_t panel_free(void); /* release the bus so panel_init() can run again */
 
 esp_err_t panel_init(const panel_config_t *cfg);

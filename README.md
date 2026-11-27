@@ -13,8 +13,8 @@ ZCode hooks ──► host/zcode_tv.py hook ──► bridge 常驻进程 ──
 
 ## 硬件结论（来自对原厂固件的逆向）
 
-原固件是 Arduino + TFT_eSPI 的「小电视」商业固件（无源码），本仓库通过反汇编其 flash 备份确定了
-全部硬件参数，无需猜测：
+原固件是 Arduino + TFT_eSPI 的「小电视」固件（开源项目 SmallDesktopDisplay 的定制版，源码见
+卖家提供的 `时钟/C3版本`）。屏幕引脚最初通过反汇编其 flash 备份得出，后与源码逐项核对一致：
 
 | 项目 | 值 | 来源 |
 |---|---|---|
@@ -23,10 +23,15 @@ ZCode hooks ──► host/zcode_tv.py hook ──► bridge 常驻进程 ──
 | SPI | mode 3，引脚 SCLK=3、MOSI=5（均为 FSPI 原生脚） | `SPIClass::begin(3, 5, 5, -1)` 反汇编 |
 | DC / RST | GPIO2 / GPIO6（复位脉冲 20ms 低 + 150ms） | `pinMode`/`digitalWrite` 调用点反汇编 |
 | CS | 未接（拉低） | `spi.begin(..., ss=-1)` |
-| 背光 | 硬件常亮（固件无任何背光控制） | 全代码段 GPIO/LEDC 扫描，无 PWM 输出 |
+| **背光** | **GPIO1，PWM 调光（LEDC）** | 源码 `User_Setup.h: #define TFT_BL 1`、`.ino: #define LCD_BL_PIN 1` + `analogWrite()` |
 
 flash 分区（原厂）：nvs @0x9000、otadata、app0 @0x10000 (3MB)、spiffs @0x310000（相册）、coredump。
 本固件只写 0x0..0x4B000（bootloader/分区表/app），**不碰 NVS 和相册**，随时可完整还原。
+
+> **踩坑记录：背光**。反汇编时只搜索了 `pinMode`/`digitalWrite`/LEDC 调用点，没找到背光控制，就
+> 错误地得出「背光硬件常亮」的结论；实际上原厂用 TFT_eSPI 的 `TFT_BL` 宏 + Arduino `analogWrite`
+> 点灯，绕过了那些搜索。结果固件能正常刷屏、串口一切正常，但屏幕漆黑——而且换 8 种 SPI 配置
+> 都「无效」，因为面板本来就在显示，只是背光没亮。**教训：排查黑屏先确认背光，再查显示数据。**
 
 ## 仓库结构
 
@@ -109,6 +114,10 @@ GB2312 字库渲染（7445 字，~190KB 在 flash，不占 RAM）；字库外的
 | 空闲堆 | 188KB / 305KB |
 
 ## 疑难排解
+
+**屏幕全黑但串口正常（`ZTV1 C stats` 帧数在涨）**：显示在跑，是背光没亮。用
+`ZTV1 C bl` 读回占空比；为 -1 说明背光初始化失败（看启动日志），为 0 说明亮度被设成 0。
+引脚和亮度在 menuconfig 的 `ZCode TV → LCD panel → Backlight GPIO / brightness`。
 
 **板子看起来「死」了 / 启动不起来**：ESP32-C3 的 USB-Serial/JTAG 外设用 DTR/RTS 控制
 EN（复位）和 IO0（启动模式）。某些串口工具打开端口时给出 `DTR=1, RTS=0` 的组合

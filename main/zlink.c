@@ -10,6 +10,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "gfx.h"
+#include "panel.h"
 #include "port.h"
 #include "sdkconfig.h"
 #include "ui.h"
@@ -211,6 +212,9 @@ static void handle_command(char *p)
               (unsigned long)u.frames, (long)u.last_frame_us, (long)u.max_frame_us, (unsigned long)g.flushes,
               (unsigned long)g.rows, (long)g.last_us, (long)g.max_us,
               (unsigned)esp_get_free_heap_size());
+    } else if (strcmp(key, "bl") == 0) {
+        /* Backlight diagnostics, so the host can confirm the PWM is really applied. */
+        reply("ZTV1 R bl pin=%d duty=%d", CONFIG_ZTV_LCD_PIN_BL, panel_backlight_duty());
     } else if (strcmp(key, "reboot") == 0) {
         reply("ZTV1 R rebooting");
         vTaskDelay(pdMS_TO_TICKS(50));

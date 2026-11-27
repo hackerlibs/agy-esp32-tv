@@ -140,6 +140,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
     }
     cs_release();
 
+    esp_err_t err = ESP_OK;
     if (cfg->bl_gpio >= 0) {
         /* The backlight is an LED driven from a PWM pin. The panel renders fine
          * without this; it just stays invisible. */
@@ -165,9 +166,11 @@ esp_err_t panel_init(const panel_config_t *cfg)
         }
         if (err == ESP_OK) {
             s_bl_ready = true;
-            panel_set_brightness(cfg->bl_brightness);
-        } else {
+            err = panel_set_brightness(cfg->bl_brightness);
+        }
+        if (err != ESP_OK) {
             ESP_LOGE(TAG, "backlight setup failed: %s", esp_err_to_name(err));
+            s_bl_ready = false;
         }
     }
 
@@ -179,7 +182,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
         .quadhd_io_num = -1,
         .max_transfer_sz = PANEL_MAX_TX_BYTES,
     };
-    esp_err_t err = spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO);
+    err = spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "spi_bus_initialize failed: %s", esp_err_to_name(err));
         return err;
@@ -295,7 +298,20 @@ esp_err_t panel_set_brightness(uint8_t percent)
         percent = 100;
     }
     const uint32_t duty = (255u * percent + 50u) / 100u;
-    return ledc_set_duty_and_update(BL_LEDC_MODE, BL_LEDC_CHANNEL, duty, 0);
+    /* Plain set + update: ledc_set_duty_and_update() needs the fade service installed. */
+    esp_err_t err = ledc_set_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL, duty);
+    if (err == ESP_OK) {
+        err = ledc_update_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL);
+    }
+    return err;
+}
+
+int panel_backlight_duty(void)
+{
+    if (!s_bl_ready) {
+        return -1;
+    }
+    return (int)ledc_get_duty(BL_LEDC_MODE, BL_LEDC_CHANNEL);
 }
 
 esp_err_t panel_set_rotation(uint8_t rotation)
