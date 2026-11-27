@@ -1,0 +1,91 @@
+menu "ZCode TV (ESP32 status display)"
+
+    menu "LCD panel"
+
+        config ZTV_LCD_H_RES
+            int "Panel width in pixels"
+            default 240
+            range 16 320
+
+        config ZTV_LCD_V_RES
+            int "Panel height in pixels"
+            default 240
+            range 16 320
+
+        config ZTV_LCD_PIN_SCLK
+            int "SPI clock GPIO"
+            default 3
+            range -1 21
+
+        config ZTV_LCD_PIN_MOSI
+            int "SPI MOSI GPIO"
+            default 5
+            range -1 21
+
+        config ZTV_LCD_PIN_DC
+            int "Data/Command GPIO"
+            default 2
+            range -1 21
+
+        config ZTV_LCD_PIN_RST
+            int "Reset GPIO (-1 if not wired)"
+            default 6
+            range -1 21
+
+        config ZTV_LCD_PIN_CS
+            int "Chip select GPIO (-1 if tied low)"
+            default -1
+            range -1 21
+
+        config ZTV_LCD_SPI_CLOCK_KHZ
+            int "SPI pixel clock in kHz"
+            default 27000
+            range 1000 80000
+            help
+               27000 is the conservative value used by most TFT_eSPI setups for
+               240x240 ST7789 panels. Raise to 40000 if your wiring is solid.
+
+        config ZTV_LCD_SPI_MODE
+            int "SPI mode"
+            default 3
+            range 0 3
+            help
+               The stock firmware on this board drives the panel in mode 3.
+
+        config ZTV_LCD_ROTATION
+            int "Panel rotation"
+            default 0
+            range 0 3
+            help
+               Same meaning as TFT_eSPI setRotation(): 0 is the panel's native
+               orientation, which is what the stock firmware uses.
+
+        config ZTV_LCD_INVERT
+            bool "Enable display inversion (IPS panels)"
+            default y
+
+    endmenu
+
+    menu "Status UI"
+
+        config ZTV_UI_FPS
+            int "Animation frame rate"
+            default 20
+            range 2 40
+
+        config ZTV_UI_DEMO_ON_BOOT
+            bool "Start in demo mode"
+            default n
+            help
+               Cycle through the screens with sample data, so the panel can be
+               checked without a host. Can also be toggled at runtime with the
+               serial command "ZTV1 C demo=1".
+
+        config ZTV_UI_DONE_SECONDS
+            int "Seconds to keep the result screen"
+            default 30
+            range 5 3600
+
+    endmenu
+
+endmenu
