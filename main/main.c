@@ -19,6 +19,9 @@
 #ifdef CONFIG_ZTV_TEST_BARS
 void bars_test_run(void);
 #endif
+#ifdef CONFIG_ZTV_TEST_RAW
+void raw_test_run(void);
+#endif
 
 static const char *TAG = "main";
 
@@ -33,6 +36,9 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "ZCode TV %s booting", ZTV_VERSION);
 
+#ifdef CONFIG_ZTV_TEST_RAW
+    raw_test_run(); /* never returns */
+#endif
 #ifdef CONFIG_ZTV_TEST_BARS
     bars_test_run(); /* never returns */
 #endif

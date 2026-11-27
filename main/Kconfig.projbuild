@@ -95,6 +95,14 @@ menu "ZCode TV (ESP32 status display)"
                console. For verifying a panel whose wiring came from reverse
                engineering; watch the screen and the serial log side by side.
 
+        config ZTV_TEST_RAW
+            bool "Bring-up test: drive the panel with bare registers like the stock firmware"
+            default n
+            help
+               Replaces the status UI with a register-level replay of the stock
+               firmware's panel bring-up (no SPI/GPIO drivers). For bisecting a
+               panel that stays dark through the driver path.
+
     endmenu
 
 endmenu
