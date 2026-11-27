@@ -1,0 +1,8 @@
+G04 Silkscreen*
+%FSLAX44Y44*%
+%MOMM*%
+%LPD*%
+%ADD10C,0.1500*%
+G01*
+D10*
+M02*
