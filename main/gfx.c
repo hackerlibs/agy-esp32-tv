@@ -535,3 +535,74 @@ int gfx_wrap_u8(char *text, int max_width, const char **lines, int max_lines)
     }
     return n;
 }
+
+int gfx_wrap_u8_to(const char *src, char *dst, size_t dst_cap, int max_width, const char **lines, int max_lines)
+{
+    const char *p = src;
+    size_t out = 0;
+    int n = 0;
+
+    if (max_lines <= 0 || max_width < gfx_char_advance(&gfx_font_small) || dst_cap == 0) {
+        return 0;
+    }
+    while (*p) {
+        while (*p == ' ') {
+            p++;
+        }
+        if (!*p) {
+            break;
+        }
+        int len = 0, width = 0;
+        while (p[len] && p[len] != '\n') {
+            const char *q = p + len;
+            uint32_t cp;
+            gfx_next_cp(&q, &cp);
+            const int adv = gfx_cp_advance(cp);
+            if (width + adv > max_width) {
+                break;
+            }
+            width += adv;
+            len = (int)(q - p);
+        }
+        if (p[len] == '\0' || n == max_lines - 1) {
+            size_t rem = strlen(p);
+            if (out + rem + 1 > dst_cap) {
+                rem = dst_cap > out + 1 ? dst_cap - out - 1 : 0;
+            }
+            lines[n++] = dst + out;
+            memcpy(dst + out, p, rem);
+            dst[out + rem] = '\0';
+            break;
+        }
+        int cut = len;
+        bool consume_sep = false;
+        if (p[len] == '\n') {
+            consume_sep = true;
+        } else {
+            while (cut > 0 && p[cut] != ' ') {
+                cut--;
+            }
+            if (cut > 0 && p[cut] == ' ') {
+                consume_sep = true;
+            } else {
+                cut = len; /* hard break (e.g. CJK): keep p[cut] for the next line */
+            }
+        }
+        if (cut == 0 && !consume_sep) {
+            /* single glyph wider than max_width: advance one code point */
+            const char *q = p;
+            uint32_t cp;
+            gfx_next_cp(&q, &cp);
+            cut = (int)(q - p);
+        }
+        if (out + (size_t)cut + 1 > dst_cap) {
+            break;
+        }
+        lines[n++] = dst + out;
+        memcpy(dst + out, p, (size_t)cut);
+        dst[out + (size_t)cut] = '\0';
+        out += (size_t)cut + 1;
+        p += cut + (consume_sep ? 1 : 0);
+    }
+    return n;
+}

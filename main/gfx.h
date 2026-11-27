@@ -10,6 +10,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #include "sdkconfig.h"
@@ -92,6 +93,10 @@ int gfx_pitch_u8(const char *s);
 
 /* Same contract as gfx_wrap(), for mixed-width text. */
 int gfx_wrap_u8(char *text, int max_width, const char **lines, int max_lines);
+
+/* Copies `src` into `dst` with NUL terminators between wrapped lines, so hard
+ * breaks inside CJK text never overwrite a character byte. */
+int gfx_wrap_u8_to(const char *src, char *dst, size_t dst_cap, int max_width, const char **lines, int max_lines);
 
 /* Sends dirty rows to the panel; returns the number of rows pushed. */
 int gfx_flush(void);

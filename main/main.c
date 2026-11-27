@@ -1,7 +1,7 @@
 /*
- * ZCode TV: shows what a ZCode session is doing on the little TV's 240x240
- * panel. The host side (host/zcode_tv.py) pushes status frames over the USB
- * Serial/JTAG link; see README.md for the protocol.
+ * AGY TV: shows what an Antigravity (AGY) session is doing on the little TV's
+ * 240x240 panel. The host side (host/agy_tv.py) pushes status frames over the
+ * USB Serial/JTAG link; see README.md for the protocol.
  */
 #include "esp_log.h"
 #include "esp_system.h"
@@ -28,7 +28,7 @@ static const char *TAG = "main";
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "ZCode TV %s booting", ZTV_VERSION);
+    ESP_LOGI(TAG, "AGY TV %s booting", ZTV_VERSION);
 
     z_port_init();
 

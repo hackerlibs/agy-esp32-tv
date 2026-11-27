@@ -1,4 +1,4 @@
-menu "ZCode TV (ESP32 status display)"
+menu "AGY TV (ESP32 status display)"
 
     menu "LCD panel"
 

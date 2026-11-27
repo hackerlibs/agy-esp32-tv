@@ -1,30 +1,34 @@
 #!/usr/bin/env python3
-"""Serial monitor for the ZCode TV board.
+"""Serial monitor for the AGY TV board.
 
 Opens the port with the line states the ESP32-C3 USB-Serial/JTAG peripheral
 expects for normal operation (DTR and RTS both asserted) and never toggles
 them afterwards, so the chip is not reset or pushed into download mode while
 you watch. Plain terminal tools can get this wrong and make the board look
-dead -- see README, "The board looks dead".
+dead -- see README.
 
-    tools/monitor.sh [port]        # default: first /dev/cu.usbmodem*
+    tools/monitor.sh [port]        # default: first detected usbmodem / ttyACM / ttyUSB
 """
+import glob
 import select
 import sys
 import termios
-import time
 
 import serial
 
 
+def find_port():
+    for pat in ("/dev/cu.usbmodem*", "/dev/ttyACM*", "/dev/ttyUSB*", "/dev/cu.usbserial*"):
+        ports = sorted(glob.glob(pat))
+        if ports:
+            return ports[0]
+    return None
+
+
 def main():
-    port = sys.argv[1] if len(sys.argv) > 1 else None
+    port = sys.argv[1] if len(sys.argv) > 1 else find_port()
     if port is None:
-        import glob
-        ports = sorted(glob.glob("/dev/cu.usbmodem*"))
-        if not ports:
-            sys.exit("no /dev/cu.usbmodem* port found")
-        port = ports[0]
+        sys.exit("no ESP32 serial port found (looked for /dev/cu.usbmodem*, /dev/ttyACM*, /dev/ttyUSB*)")
     ser = serial.Serial(port, 115200, timeout=0.1, dsrdtr=False, rtscts=False)
     ser.dtr = True
     ser.rts = True

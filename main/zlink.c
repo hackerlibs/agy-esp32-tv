@@ -17,14 +17,14 @@
 #include "version.h"
 #include "zmodel.h"
 
-#define RX_LINE_MAX 640
-#define KEY_MAX  16
+#define RX_LINE_MAX 768
+#define KEY_MAX     16
 
 static const char *TAG = "zlink";
 
 static void reply(const char *fmt, ...)
 {
-    char buf[192];
+    char buf[224];
     va_list ap;
     va_start(ap, fmt);
     int n = vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
@@ -120,6 +120,7 @@ static void handle_status(char *p)
     char sid[ZM_SID_MAX] = "";
     char clk[ZM_CLK_MAX] = "";
     char date[ZM_DATE_MAX] = "";
+    char model[ZM_MODEL_MAX] = "";
     char key[KEY_MAX];
     char value[ZM_MSG_MAX];
 
@@ -147,12 +148,27 @@ static void handle_status(char *p)
         } else if (strcmp(key, "date") == 0) {
             strlcpy(date, value, sizeof(date));
             f.date = date;
+        } else if (strcmp(key, "model") == 0) {
+            strlcpy(model, value, sizeof(model));
+            f.model = model;
         } else if (strcmp(key, "n") == 0) {
             f.tool_count = atol(value);
         } else if (strcmp(key, "f") == 0) {
             f.fail_count = atol(value);
         } else if (strcmp(key, "el") == 0) {
             f.elapsed_s = atol(value);
+        } else if (strcmp(key, "inv") == 0) {
+            f.inv_count = atol(value);
+        } else if (strcmp(key, "step") == 0) {
+            f.step_index = atol(value);
+        } else if (strcmp(key, "ctx") == 0) {
+            f.ctx_tokens = atol(value);
+        } else if (strcmp(key, "out") == 0) {
+            f.out_tokens = atol(value);
+        } else if (strcmp(key, "sub") == 0) {
+            f.sub_count = atol(value);
+        } else if (strcmp(key, "bg") == 0) {
+            f.bg_count = atol(value);
         } else if (strcmp(key, "todo") == 0) {
             char *slash = strchr(value, '/');
             if (slash) {
@@ -198,9 +214,10 @@ static void handle_command(char *p)
         static const char *const NAMES[] = {"boot", "idle", "think", "perm", "tool", "err", "done"};
         zmodel_t m;
         zmodel_get(&m);
-        reply("ZTV1 R state st=%s tool=\"%s\" n=%d f=%d el=%u todo=%d/%d demo=%d rot=%d msg=\"%s\"",
-              NAMES[m.state], m.tool, m.tool_count, m.fail_count, m.elapsed_s, m.todo_done, m.todo_total,
-              m.demo ? 1 : 0, m.rotation, m.msg);
+        reply("ZTV1 R state st=%s tool=\"%s\" model=\"%s\" n=%d f=%d el=%u todo=%d/%d inv=%d ctx=%u out=%u "
+              "demo=%d rot=%d msg=\"%.60s\"",
+              NAMES[m.state], m.tool, m.model, m.tool_count, m.fail_count, m.elapsed_s, m.todo_done,
+              m.todo_total, m.inv_count, m.ctx_tokens, m.out_tokens, m.demo ? 1 : 0, m.rotation, m.msg);
     } else if (strcmp(key, "stats") == 0) {
         /* Runtime numbers, so the render loop can be checked without seeing the panel. */
         gfx_stats_t g;

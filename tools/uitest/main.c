@@ -1,12 +1,12 @@
 /*
- * Offscreen renderer for the status screens.
+ * Offscreen renderer for the AGY TV status screens.
  *
  * Compiles the real ui.c / gfx.c / zmodel.c on a desktop, feeds the model a
- * scripted session and writes one raw RGB565 frame per screen. It also keeps a
- * simulated panel that is only ever updated through panel_write_rect(): after
- * every frame it must be byte-identical to the framebuffer, which proves the
- * dirty-row tracking pushes every changed row (a miss would leave residue on
- * the real panel).
+ * scripted AGY session and writes one raw RGB565 frame per screen. It also
+ * keeps a simulated panel that is only ever updated through panel_write_rect():
+ * after every frame it must be byte-identical to the framebuffer, which proves
+ * the dirty-row tracking pushes every changed row (a miss would leave residue
+ * on the real panel).
  *
  * Build and run with tools/uitest/run.sh.
  */
@@ -64,22 +64,6 @@ esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const
     return ESP_OK;
 }
 
-/* Dumps the top-left corner of both buffers as characters, for tracking down stray pixels. */
-static void dump_corner(void)
-{
-    for (int pass = 0; pass < 2; pass++) {
-        const uint8_t *buf = pass ? gfx_framebuffer() : g_panel;
-        fprintf(stderr, "%s\n", pass ? "framebuffer, rows 0..7 x 0..31:" : "panel, rows 0..7 x 0..31:");
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 32; x++) {
-                const uint16_t c = (uint16_t)((buf[(size_t)(y * GFX_W + x) * 2] << 8) | buf[(size_t)(y * GFX_W + x) * 2 + 1]);
-                fputc(c == 0xEF7E ? '#' : c == 0x2E5F ? 'c' : c == 0x1084 ? '.' : c == 0x1147 ? '-' : '?', stderr);
-            }
-            fputc('\n', stderr);
-        }
-    }
-}
-
 static void fail(const char *fmt, ...)
 {
     va_list ap;
@@ -89,41 +73,10 @@ static void fail(const char *fmt, ...)
     exit(1);
 }
 
-/* Watches header pixels across every render; used with the GFX_TRACE_PIXEL
- * stage probes in ui.c to pinpoint stray framebuffer writes. */
-static uint16_t fb16(int x, int y)
-{
-    const uint8_t *fb = gfx_framebuffer();
-    return (uint16_t)((fb[(size_t)(y * GFX_W + x) * 2] << 8) | fb[(size_t)(y * GFX_W + x) * 2 + 1]);
-}
-
-/* ui.c calls this between render stages; print only when the watched pixel changes. */
-void ztv_phase(const char *phase)
-{
-    static uint16_t last;
-    static bool have;
-    const uint16_t v = fb16(3, 2);
-    if (!have || v != last) {
-        fprintf(stderr, "phase %-16s fb(3,2)=%04x\n", phase, v);
-        last = v;
-        have = true;
-    }
-}
-
 static void render(const char *what)
 {
-    static long frame_no;
-    frame_no++;
-    const uint16_t before[4] = {fb16(3, 2), fb16(3, 3), fb16(0, 4), fb16(2, 5)};
     const long pushed_before = g_bytes_pushed;
     ui_render();
-    const uint16_t after[4] = {fb16(3, 2), fb16(3, 3), fb16(0, 4), fb16(2, 5)};
-    for (int i = 0; i < 4; i++) {
-        if (after[i] != before[i]) {
-            fprintf(stderr, "probe %d changed %04x -> %04x in frame %ld (%s), %ld bytes pushed\n", i,
-                    before[i], after[i], frame_no, what, g_bytes_pushed - pushed_before);
-        }
-    }
     g_frames++;
     const long pushed = g_bytes_pushed - pushed_before;
     if (pushed > g_worst_frame_bytes) {
@@ -143,14 +96,9 @@ static void render(const char *what)
                         last = x;
                     }
                 }
-                dump_corner();
                 fail("after %s: row %d on the panel differs from the framebuffer (dirty row not pushed); "
-                     "differing pixels x=%d..%d, panel=0x%04x framebuffer=0x%04x (neighbours on panel: "
-                     "0x%04x 0x%04x)\n",
-                     what, y, first, last, (g_panel[(size_t)y * GFX_W * 2 + first * 2] << 8) | g_panel[(size_t)y * GFX_W * 2 + first * 2 + 1],
-                     (want[first * 2] << 8) | want[first * 2 + 1],
-                     first > 0 ? (g_panel[(size_t)y * GFX_W * 2 + (first - 1) * 2] << 8) | g_panel[(size_t)y * GFX_W * 2 + (first - 1) * 2 + 1] : 0,
-                     (g_panel[(size_t)(y + 1) * GFX_W * 2 + first * 2] << 8) | g_panel[(size_t)(y + 1) * GFX_W * 2 + first * 2 + 1]);
+                     "differing pixels x=%d..%d\n",
+                     what, y, first, last);
             }
         }
         fail("after %s: panel differs from the framebuffer\n", what);
@@ -190,9 +138,10 @@ static void clock_of(char out[ZM_CLK_MAX])
 }
 
 static const char *PROJ = "esp32_tv";
+static const char *MODEL = "gemini-4-neon-high";
 
-static void push(zstate_t state, const char *tool, const char *msg, const char *cur, long tools, long fails,
-                 long elapsed, long done, long total)
+static void push_agy(zstate_t state, const char *tool, const char *msg, const char *cur, long tools, long fails,
+                     long elapsed, long done, long total, long inv, long step, long ctx, long out, long sub, long bg)
 {
     char clk[ZM_CLK_MAX];
     clock_of(clk);
@@ -202,6 +151,7 @@ static void push(zstate_t state, const char *tool, const char *msg, const char *
         .msg = msg,
         .cur = cur,
         .proj = PROJ,
+        .model = MODEL,
         .clock = clk,
         .date = "2026-11-27 FRI",
         .tool_count = tools,
@@ -209,6 +159,12 @@ static void push(zstate_t state, const char *tool, const char *msg, const char *
         .elapsed_s = elapsed,
         .todo_done = done,
         .todo_total = total,
+        .inv_count = inv,
+        .step_index = step,
+        .ctx_tokens = ctx,
+        .out_tokens = out,
+        .sub_count = sub,
+        .bg_count = bg,
     };
     zmodel_apply(&f, g_now);
 }
@@ -221,88 +177,118 @@ int main(int argc, char **argv)
     snprintf(g_outdir, sizeof(g_outdir), "%s", argv[1]);
 
     panel_config_t cfg = {.rotation = 0};
-    memset(g_panel, 0, sizeof(g_panel)); /* a fresh panel shows whatever it powers up with */
+    memset(g_panel, 0, sizeof(g_panel));
     zmodel_init(cfg.rotation);
     gfx_init();
 
-    printf("scenario: boot with no bridge, then the cable unplugged\n");
+    printf("scenario: boot with no bridge, then cable unplugged\n");
     g_usb = true;
-    run(0.3, "boot splash");
+    run(0.3f, "boot splash");
     save("boot");
     g_now = 3 * 1000000;
-    run(1.0, "no host");
+    run(1.0f, "no host");
     save("nohost");
     g_usb = false;
-    run(0.5, "no usb");
+    run(0.5f, "no usb");
     save("nousb");
 
-    printf("scenario: bridge connects, session idles, then a turn runs\n");
+    printf("scenario: bridge connects, AGY idles, then runs a multi-step turn\n");
     g_usb = true;
-    push(ZST_IDLE, "", "", "", 0, 0, 0, 0, 0);
-    run(0.5, "idle");
+    push_agy(ZST_IDLE, "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    run(0.5f, "idle");
     save("idle");
 
     g_now += 2 * 1000000;
-    push(ZST_THINK, "", "Show what ZCode is doing on the little TV: the ESP32-C3 on the desk should display "
-                        "the current tool and how far along the plan is.", "Read the hook payload schema",
-         0, 0, 2, 1, 5);
-    run(1.5, "think");
+    push_agy(ZST_THINK, "", "Inspect the ESP32 firmware and redesign the display to show AGY progress, model, and tokens.",
+             "Read hooks.md and inspect main/ui.c", 0, 0, 4, 1, 5, 2, 6, 28400, 940, 0, 0);
+    run(1.5f, "think");
     save("think");
 
-    push(ZST_TOOL, "Bash", "idf.py -p /dev/cu.usbmodem14201 build", "Write the SPI panel driver", 3, 0, 41, 1, 5);
-    run(1.0, "tool");
+    push_agy(ZST_TOOL, "run_command", "tools/uitest/run.sh /tmp/agy-tv-ui", "Upgrade firmware model and UI",
+             5, 0, 41, 2, 5, 4, 14, 48200, 2150, 0, 0);
+    run(1.0f, "tool");
     save("tool");
 
-    push(ZST_TOOL, "Edit", "Long single line that cannot wrap because it has no spaces at all, "
-                           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa so the tail has to scroll sideways "
-                           "to be readable at all, ping-ponging with a pause at each end",
-         "Render the status screens offscreen and check the layout for every state", 11, 0, 97, 3, 5);
-    run(2.6, "tool with marquee");
+    /* Verify live same-state update (bug fix in zmodel_apply): stays ZST_TOOL while tool/msg/sub change */
+    push_agy(ZST_TOOL, "subagent", "Codebase Researcher: scan host/ and main/ for AGY integration points",
+             "Build AGY host bridge and transcript tracker", 8, 0, 68, 3, 5, 5, 22, 76900, 3810, 2, 1);
+    run(1.0f, "tool with subagents and bg");
+    save("tool_subagent");
+
+    /* No checklist yet -> ACTIVITY fallback with cur */
+    push_agy(ZST_TOOL, "read_file", "main/zlink.c:1-285",
+             "Checking ZTV1 line protocol parser for backward compatibility", 2, 0, 15, 0, 0, 1, 5, 16200, 420, 0, 0);
+    run(0.8f, "tool activity no steps");
+    save("tool_activity");
+
+    /* No checklist and no cur -> indeterminate PROGRESS bar */
+    push_agy(ZST_THINK, "", "Quick question about ESP32-C3 backlight GPIO1 PWM duty cycle", "",
+             1, 0, 7, 0, 0, 1, 3, 9800, 180, 0, 0);
+    run(1.0f, "think indeterminate bar");
+    save("think_nocur");
+
+    /* Marquee overflow */
+    push_agy(ZST_TOOL, "edit_file",
+             "Long single line that cannot wrap because it has no spaces at all, "
+             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa so the tail has to scroll sideways "
+             "to be readable at all, ping-ponging with a pause at each end",
+             "Render the AGY status screens offscreen and check the layout for every single state",
+             11, 0, 97, 3, 5, 6, 28, 84100, 4120, 0, 0);
+    run(2.6f, "tool with marquee");
     save("tool_marquee");
 
-    push(ZST_PERM, "Bash", "esptool write_flash 0x0 build/zcode-tv.bin", "Flash it and verify on the hardware",
-         14, 0, 132, 4, 5);
-    run(0.5, "permission");
-    save("perm");
+    /* ask_question -> WAIT INPUT */
+    push_agy(ZST_PERM, "ask_question", "Install AGY hooks globally (~/.gemini/config/hooks.json) or workspace only?",
+             "Install AGY lifecycle hooks", 14, 0, 132, 4, 5, 7, 31, 88300, 4420, 0, 0);
+    run(0.5f, "wait input");
+    save("wait_input");
 
-    push(ZST_ERR, "Bash", "exit code 1: Could not open /dev/cu.usbmodem14201, the port is busy or does not exist",
-         "Flash it and verify on the hardware", 15, 1, 140, 4, 5);
-    run(0.5, "tool failed");
+    /* Error */
+    push_agy(ZST_ERR, "run_command", "exit status 1: Could not open /dev/ttyACM0, the port is busy",
+             "Flash and verify on hardware", 15, 1, 140, 4, 5, 8, 34, 94100, 4890, 0, 0);
+    run(0.5f, "error");
     save("err");
 
-    push(ZST_DONE, "", "Done. The firmware builds and the panel shows the live status; ZCode hooks push every "
-                       "event to the board over USB.\n\nWhat changed:\n- main/: panel driver, drawing layer, "
-                       "status screens\n- host/: bridge and hook entry\n- tools/: build, flash and restore scripts",
-         "", 18, 1, 203, 5, 5);
-    run(0.5, "done");
+    /* Done */
+    push_agy(ZST_DONE, "", "Done! ESP32 TV now shows AGY progress, active steps, model name, token usage, "
+                           "subagents, and tool summaries via AGY hooks + transcript.jsonl.",
+             "", 18, 1, 203, 5, 5, 9, 42, 104500, 5620, 0, 0);
+    run(0.5f, "done");
     save("done");
 
-    printf("scenario: the bridge stops sending while a tool runs (link lost)\n");
-    push(ZST_TOOL, "Bash", "sleep 600", "Wait", 20, 1, 300, 4, 5);
-    run(0.2, "tool before link loss");
+    /* Idle after a turn (shows model + last turn + tokens) */
+    push_agy(ZST_IDLE, "", "", "", 18, 1, 203, 0, 0, 9, 42, 104500, 5620, 0, 0);
+    run(0.5f, "idle after turn");
+    save("idle_stats");
+
+    printf("scenario: link lost while running\n");
+    push_agy(ZST_TOOL, "run_command", "sleep 600", "Wait", 20, 1, 300, 4, 5, 10, 45, 110000, 6000, 0, 1);
+    run(0.2f, "tool before link loss");
     g_now += 13 * 1000000;
-    run(0.5, "link lost");
+    run(0.5f, "link lost");
     save("lost");
 
-    printf("scenario: Chinese text, plus characters the font does not have\n");
+    printf("scenario: Chinese text + mixed scripts + CJK project name\n");
     g_usb = true;
-    push(ZST_THINK, "", "帮小电视加上中文显示：屏幕上要能显示 ZCode 的状态和待办进度，不只是英文。"
-                        "This sentence is here to mix both scripts on one line and check the wrap.",
-         "给绘图层加混合文本渲染器", 0, 0, 3, 1, 4);
-    run(1.0, "think (Chinese)");
+    push_agy(ZST_THINK, "", "帮我把这个 esp32 设备改成显示 AGY 的详情进度：包含步骤条、模型、上下文 Token 和工具详情。",
+             "解析 AGY hooks 与 transcript.jsonl", 4, 0, 26, 2, 6, 3, 12, 62300, 2410, 0, 0);
+    run(1.0f, "cjk think");
     save("cjk_think");
-    push(ZST_TOOL, "Edit", "main/ui.c：文字部件改用 gfx_text_u8，按 UTF-8 解码逐字选择字体，找不到的字形跳过",
-         "\xe2\x9c\x85 生成字库：GB2312 全集 + 常用符号 → vérifier naïve", 9, 0, 77, 2, 4);
-    run(1.0, "tool (Chinese)");
+
+    push_agy(ZST_TOOL, "edit_file", "main/ui.c：新增 AGY 模型与 Token 状态条、步骤百分比与子任务计数",
+             "\xe2\x9c\x85 实时同步 AGY 进度 → update_steps + transcript", 9, 0, 77, 3, 6, 5, 21, 89400, 3720, 1, 1);
+    run(1.0f, "cjk tool");
     save("cjk_tool");
-    push(ZST_DONE, "", "完成。固件现在能显示 GB2312 范围内的中文：\n- 标题用 Press Start 2P\n"
-                       "- 正文 ASCII 用 Spleen 5x8，中文用 Cubic 11\n- 字库约 190KB，放在 Flash 里，不占 RAM",
-         "", 21, 0, 150, 4, 4);
-    run(0.5, "done (Chinese)");
+
+    push_agy(ZST_DONE, "", "已完成改造：\n- 固件升级为 AGY TV v2.0.0\n- 支持 AGY hooks 与 transcript 自动追踪\n"
+                           "- 兼容旧版 ZTV1 串口协议",
+             "", 21, 0, 150, 6, 6, 10, 48, 118200, 6250, 0, 0);
+    run(0.5f, "cjk done");
     save("cjk_done");
-    PROJ = "\xe5\xb0\x8f\xe7\x94\xb5\xe8\xa7\x86"; /* a non-ASCII project name */
-    push(ZST_IDLE, "", "", "", 21, 0, 0, 0, 0);
-    run(0.5, "idle (Chinese project)");
+
+    PROJ = "\xe5\xb0\x8f\xe7\x94\xb5\xe8\xa7\x86";
+    push_agy(ZST_IDLE, "", "", "", 21, 0, 150, 0, 0, 10, 48, 118200, 6250, 0, 0);
+    run(0.5f, "cjk idle");
     save("cjk_idle");
     PROJ = "esp32_tv";
 
@@ -311,7 +297,7 @@ int main(int argc, char **argv)
     g_usb = false; /* demo must run without any host */
     zmodel_set_demo(true);
     for (int step = 0; step < 7; step++) {
-        run(2.0, "demo step");
+        run(2.0f, "demo step");
         char name[32];
         snprintf(name, sizeof(name), "demo%d", step);
         save(name);

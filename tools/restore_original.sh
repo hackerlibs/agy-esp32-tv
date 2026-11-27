@@ -8,16 +8,34 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BACKUP="$ROOT/backup/esp32c3_original_4MB.bin"
-PORT="${PORT:-$(ls /dev/cu.usbmodem* 2>/dev/null | head -1 || true)}"
 
-if [ -z "$PORT" ]; then echo "no /dev/cu.usbmodem* port found" >&2; exit 1; fi
-if [ ! -f "$BACKUP" ]; then echo "missing $BACKUP" >&2; exit 1; fi
-if [ -f /tmp/zcode-tv.bridge.pid ] && kill -0 "$(cat /tmp/zcode-tv.bridge.pid)" 2>/dev/null; then
-    echo "the bridge is running and owns the port: kill \$(cat /tmp/zcode-tv.bridge.pid) first" >&2
+detect_port() {
+    for pat in /dev/cu.usbmodem* /dev/ttyACM* /dev/ttyUSB* /dev/cu.usbserial*; do
+        for p in $pat; do
+            if [ -e "$p" ]; then
+                echo "$p"
+                return 0
+            fi
+        done
+    done
+    return 0
+}
+
+PORT="${PORT:-$(detect_port)}"
+
+if [ -z "$PORT" ]; then
+    echo "no ESP32 serial port found (looked for /dev/cu.usbmodem*, /dev/ttyACM*, /dev/ttyUSB*)" >&2
     exit 1
 fi
+if [ ! -f "$BACKUP" ]; then echo "missing $BACKUP" >&2; exit 1; fi
+for pidfile in /tmp/agy-tv.bridge.pid /tmp/zcode-tv.bridge.pid; do
+    if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+        echo "the bridge is running and owns the port: kill \$(cat $pidfile) first" >&2
+        exit 1
+    fi
+done
 
-echo "This replaces the whole 4 MB flash (ZCode TV firmware -> stock firmware)."
+echo "This replaces the whole 4 MB flash (AGY TV firmware -> stock firmware)."
 printf "Continue? [y/N] "
 read -r answer
 [ "$answer" = "y" ] || { echo "aborted"; exit 1; }
