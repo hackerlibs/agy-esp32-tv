@@ -13,6 +13,7 @@
 | 5 | [05-buttons-keypad-and-alarm.md](./05-buttons-keypad-and-alarm.md) | **扩展实战：按键 / 键盘与闹钟电路设计**：ESP32-C3 剩余引脚预算、RC 消抖独立按键、EC11 旋转编码器、单脚 ADC 梯形键盘、I2C 扩展矩阵键盘、电磁蜂鸣器三极管+续流二极管驱动、DS3231 离线时钟避坑与仪器实测 |
 | 6 | [06-pcb-design-and-jlcpcb.md](./06-pcb-design-and-jlcpcb.md) | **完整 PCB 设计与嘉立创打板下单教程**：直接可下单的 `96×76mm` 2 层全插件底板 Gerber ZIP、KiCad 工程、BOM 物料清单、嘉立创免费打样券下单流程与从矮到高焊接/上电安全核对清单 |
 | 7 | [07-smartphone-screen-to-esp32.md](./07-smartphone-screen-to-esp32.md) | **进阶实战：给 ESP32 接二手手机屏的电路设计**：老式并口/QSPI 与现代 MIPI-DSI 兼容性对比、5 路精密供电（1.8V/2.8V LDO + TPS65132 ±5.5V 偏压 + SY7200A 24V 恒流背光升压）、1.8V 电平转换、4 层 100Ω 差分走线、从 Android 内核找 Init Code 与示波器测 `TE` 60Hz 排障 |
+| 8 | [08-esp32-usb-oscilloscope.md](./08-esp32-usb-oscilloscope.md) | **进阶综合实战：ESP32 + 手机屏 USB 示波器（附完整 AFE 电路与嘉立创可打板 PCB）**：单 3.3V 供电测 `±20V/±4V` 模拟前端、1MΩ 频率补偿分压、DIP-8 双运放缓冲与增益切换、抗混叠滤波、1kHz 校准方波、非隔离安全红线、台式示波器校准法及升级 32MSPS `AD9280` 路线 |
 
 ## 推荐搭配实操
 

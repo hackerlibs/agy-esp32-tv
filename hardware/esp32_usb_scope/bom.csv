@@ -1,0 +1,33 @@
+Designator,Qty,Value,Footprint,LCSC_Ref,Description
+C_AAF,1,1nF,C_Disc_D5.0mm_P5.08mm,C192570,1nF (102) Anti-Aliasing Cap (fc~160kHz; use 10nF for 16kHz)
+C_AC,1,0.1u 250V,C_Film_L10mm_P7.62mm,C106875,0.1uF 250V CBB Film Capacitor (AC Coupling)
+C_ATT,1,180pF,C_Disc_D5.0mm_P5.08mm,C192560,180pF C0G/NP0 Compensation Cap (matches C_COMP)
+C_AV1,1,10uF,CP_Radial_D5.0mm_P2.54mm,C134785,10uF 16V Electrolytic (AVDD Bulk)
+C_AV2,1,100n,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF Ceramic (U2 AVDD Decoupling)
+C_COMP,1,5-30pF,C_Trim_6mm_P5.08mm,C273071,5-30pF Trimmer Capacitor (Probe Frequency Compensation)
+C_EA,1,10nF,C_Disc_D5.0mm_P5.08mm,C192574,10nF Ceramic EC11_A Filter
+C_EB,1,10nF,C_Disc_D5.0mm_P5.08mm,C192574,10nF Ceramic EC11_B Filter
+C_LCD,1,100nF,C_Disc_D5.0mm_P5.08mm,C192578,0.1uF Ceramic (LCD 3V3 Decoupling)
+D_P1,1,1N4148,D_DO-35_P10.16mm,C2128,1N4148 Over-voltage Clamp to AVDD (+3.3V)
+D_P2,1,1N4148,D_DO-35_P10.16mm,C2128,1N4148 Under-voltage Clamp to GND (0V)
+EC11,1,TIME/TRIG,RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm,C470609,Alps EC11E Vertical Rotary Encoder (Timebase / Trigger / Hold)
+J_BNC,1,BNC-JACK,Connector_BNC_RA_P10.16mm,C964015,Right-Angle Through-Hole BNC Female Connector
+J_EXT,1,AFE-OUT-4P,PinHeader_1x04_P2.54mm,C2337,1x4P 2.54mm Header (AFE Breakout -> ESP32-S3/P4 / AD9280 + 1kHz CAL Hook)
+J_LCD,1,ST7789-8P,PinHeader_1x08_P2.54mm,C2883692,"1x8P 2.54mm Female Header (1.54"" ST7789 Standalone Display)"
+R_AAF,1,1k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61268,1k 1/4W Anti-Aliasing Filter Resistor
+R_AV,1,10R,R_Axial_DIN0207_L6.3mm_P10.16mm,C61260,10 Ohm 1/4W Analog Power Filter Resistor
+R_CAL,1,1k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61268,1k 1/4W 1kHz Probe Calibration Output Series Resistor
+R_DN,1,100k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61276,100k 1% 1/4W Lower Bias Resistor
+R_FB,1,39k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61274,39k 1% 1/4W U2B Feedback Resistor (x4.7 gain)
+R_IN,1,910k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61280,910k 1% 1/4W Input Attenuator Resistor (1MOhm total)
+R_PUA,1,10k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61270,10k 1/4W EC11_A Pull-up
+R_PUB,1,10k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61270,10k 1/4W EC11_B Pull-up
+R_REF1,1,22k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61277,22k 1% 1/4W Gain Mid-Rail Upper Divider (1.57V)
+R_REF2,1,20k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61278,20k 1% 1/4W Gain Mid-Rail Lower Divider
+R_UP,1,100k,R_Axial_DIN0207_L6.3mm_P10.16mm,C61276,100k 1% 1/4W Upper Bias Resistor (V_mid=1.56V)
+SW_CPL,1,AC/DC,SW_Slide_SPDT_P2.54mm,C431540,"AC / DC Coupling Slide Switch (1=AC, 2=OUT, 3=DC)"
+SW_GAIN,1,X1/X5,SW_Slide_SPDT_P2.54mm,C431540,"Gain Switch: Open/1-2=x1 (+-20V), 2-3=x4.7 (+-4V) — tie pin 1 & 2 to G_INV via short"
+U1,1,ESP32-C3 SuperMini,Module_ESP32-C3_SuperMini,,ESP32-C3 SuperMini Module (plug in for standalone scope; omit if using J_EXT with ESP32-P4)
+U1_L,1,ESP32-C3-SM-L,PinHeader_1x08_P2.54mm,C2883692,1x8P 2.54mm Female Header (ESP32-C3 SuperMini Left)
+U1_R,1,ESP32-C3-SM-R,PinHeader_1x08_P2.54mm,C2883692,1x8P 2.54mm Female Header (ESP32-C3 SuperMini Right)
+U2,1,MCP6002,DIP-8_W7.62mm_Socket,C497468,DIP-8 Socket + Dual Rail-to-Rail Op-Amp (MCP6002 / TLC2272)
