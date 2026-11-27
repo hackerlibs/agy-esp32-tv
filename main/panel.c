@@ -16,6 +16,11 @@
 #define CMD_COLMOD 0x3A
 #define CMD_INVON  0x21
 
+/* The GPSPI DMA length register holds 18 bits, so one transaction carries at
+ * most 32 KiB: a full 240x240 frame is 115200 bytes and has to be split. The
+ * panel keeps streaming pixels into the open window across transactions. */
+#define PANEL_MAX_TX_BYTES 32640
+
 /* MADCTL values used by the stock firmware's setRotation(). */
 static const uint8_t MADCTL[4] = {0x00, 0x60, 0xC0, 0xA0};
 
@@ -133,7 +138,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
         .miso_io_num = -1,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
-        .max_transfer_sz = (int)cfg->h_res * cfg->v_res * 2,
+        .max_transfer_sz = PANEL_MAX_TX_BYTES,
     };
     esp_err_t err = spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO);
     if (err != ESP_OK) {
@@ -220,8 +225,12 @@ esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const
     }
     cs_select();
     esp_err_t err = set_window(x, y, x + w - 1, y + h - 1);
-    if (err == ESP_OK) {
-        err = write_data(pixels, (size_t)w * h * 2);
+    const uint8_t *p = pixels;
+    for (size_t left = (size_t)w * h * 2; err == ESP_OK && left > 0;) {
+        const size_t n = left > PANEL_MAX_TX_BYTES ? PANEL_MAX_TX_BYTES : left;
+        err = write_data(p, n);
+        p += n;
+        left -= n;
     }
     cs_release();
     return err;
