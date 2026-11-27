@@ -6,15 +6,17 @@
 
 #include "driver/usb_serial_jtag.h"
 #include "esp_log.h"
-#include "esp_vfs_dev_usb_serial_jtag.h"
+#include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "gfx.h"
 #include "port.h"
 #include "sdkconfig.h"
+#include "ui.h"
 #include "version.h"
 #include "zmodel.h"
 
-#define LINE_MAX 640
+#define RX_LINE_MAX 640
 #define KEY_MAX  16
 
 static const char *TAG = "zlink";
@@ -189,6 +191,25 @@ static void handle_command(char *p)
         } else {
             reply("ZTV1 R error rot must be 0..3");
         }
+    } else if (strcmp(key, "get") == 0) {
+        /* What the device is currently showing: lets the host check a frame landed. */
+        static const char *const NAMES[] = {"boot", "idle", "think", "perm", "tool", "err", "done"};
+        zmodel_t m;
+        zmodel_get(&m);
+        reply("ZTV1 R state st=%s tool=\"%s\" n=%d f=%d el=%u todo=%d/%d demo=%d rot=%d msg=\"%s\"",
+              NAMES[m.state], m.tool, m.tool_count, m.fail_count, m.elapsed_s, m.todo_done, m.todo_total,
+              m.demo ? 1 : 0, m.rotation, m.msg);
+    } else if (strcmp(key, "stats") == 0) {
+        /* Runtime numbers, so the render loop can be checked without seeing the panel. */
+        gfx_stats_t g;
+        ui_stats_t u;
+        gfx_get_stats(&g);
+        ui_get_stats(&u);
+        reply("ZTV1 R stats frames=%lu last_us=%ld max_us=%ld flushes=%lu rows=%lu flush_last_us=%ld "
+              "flush_max_us=%ld heap=%u",
+              (unsigned long)u.frames, (long)u.last_frame_us, (long)u.max_frame_us, (unsigned long)g.flushes,
+              (unsigned long)g.rows, (long)g.last_us, (long)g.max_us,
+              (unsigned)esp_get_free_heap_size());
     } else if (strcmp(key, "reboot") == 0) {
         reply("ZTV1 R rebooting");
         vTaskDelay(pdMS_TO_TICKS(50));
@@ -213,7 +234,7 @@ static void handle_line(char *line)
 
 static void reader_task(void *arg)
 {
-    static char line[LINE_MAX];
+    static char line[RX_LINE_MAX];
     size_t len = 0;
     bool overlong = false;
     uint8_t buf[64];
@@ -229,7 +250,7 @@ static void reader_task(void *arg)
                 }
                 len = 0;
                 overlong = false;
-            } else if (len < LINE_MAX - 1) {
+            } else if (len < RX_LINE_MAX - 1) {
                 line[len++] = c;
             } else {
                 /* overlong line: drop the rest of it rather than act on a truncated frame */
@@ -241,7 +262,7 @@ static void reader_task(void *arg)
 
 void zlink_start(void)
 {
-    const usb_serial_jtag_driver_config_t cfg = {
+    usb_serial_jtag_driver_config_t cfg = {
         .rx_buffer_size = 1024,
         .tx_buffer_size = 1024,
     };
@@ -250,10 +271,7 @@ void zlink_start(void)
         ESP_LOGE(TAG, "usb_serial_jtag_driver_install failed: %s", esp_err_to_name(err));
         return;
     }
-    err = esp_vfs_dev_usb_serial_jtag_use_driver();
-    if (err != ESP_OK) {
-        ESP_LOGW(TAG, "esp_vfs_dev_usb_serial_jtag_use_driver failed: %s", esp_err_to_name(err));
-    }
+    /* Installing the driver also switches the console (stdout) over to it. */
 
     xTaskCreate(reader_task, "zlink", 4096, NULL, 6, NULL);
     reply("ZTV1 R hello fw=\"%s\" lcd=%dx%d rot=%d", ZTV_VERSION, CONFIG_ZTV_LCD_H_RES, CONFIG_ZTV_LCD_V_RES,

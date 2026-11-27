@@ -117,6 +117,8 @@ static struct {
     bool force;
     char clock_drawn[ZM_CLK_MAX];
     textw_t msg, cur, done;
+    uint32_t frames;
+    int32_t last_frame_us, max_frame_us;
 } s;
 
 static int isin(int q)
@@ -672,7 +674,8 @@ void ui_render(void)
         s.inited = true;
     }
 
-    const int64_t now = z_now_us();
+    const int64_t started = z_now_us();
+    const int64_t now = started;
     zmodel_demo_tick(now);
 
     zmodel_t m;
@@ -711,4 +714,17 @@ void ui_render(void)
     }
     draw_dynamic(&m, ds, now);
     gfx_flush();
+
+    s.frames++;
+    s.last_frame_us = (int32_t)(z_now_us() - started);
+    if (s.last_frame_us > s.max_frame_us) {
+        s.max_frame_us = s.last_frame_us;
+    }
+}
+
+void ui_get_stats(ui_stats_t *out)
+{
+    out->frames = s.frames;
+    out->last_frame_us = s.last_frame_us;
+    out->max_frame_us = s.max_frame_us;
 }

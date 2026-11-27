@@ -18,6 +18,13 @@
 
 static const char *TAG = "main";
 
+/* Unset Kconfig booleans are simply not defined in sdkconfig.h. */
+#ifdef CONFIG_ZTV_LCD_INVERT
+#define LCD_INVERT true
+#else
+#define LCD_INVERT false
+#endif
+
 void app_main(void)
 {
     ESP_LOGI(TAG, "ZCode TV %s booting", ZTV_VERSION);
@@ -35,7 +42,7 @@ void app_main(void)
         .pclk_hz = CONFIG_ZTV_LCD_SPI_CLOCK_KHZ * 1000,
         .spi_mode = CONFIG_ZTV_LCD_SPI_MODE,
         .rotation = CONFIG_ZTV_LCD_ROTATION,
-        .invert = IS_ENABLED(CONFIG_ZTV_LCD_INVERT),
+        .invert = LCD_INVERT,
     };
     ESP_ERROR_CHECK(panel_init(&panel));
 

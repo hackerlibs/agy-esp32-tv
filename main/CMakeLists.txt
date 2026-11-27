@@ -9,5 +9,5 @@ idf_component_register(
         "ui_task.c"      # render task (FreeRTOS)
         "zlink.c"        # USB Serial/JTAG link + frame parser
     INCLUDE_DIRS "."
-    REQUIRES esp_driver_gpio esp_driver_spi esp_driver_usb_serial_jtag esp_timer
+        REQUIRES esp_driver_gpio esp_driver_spi esp_driver_usb_serial_jtag esp_timer
 )

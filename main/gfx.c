@@ -3,11 +3,13 @@
 #include <string.h>
 
 #include "fonts/font_press_start_8.h"
+#include "port.h"
 #include "fonts/font_spleen_5x8.h"
 
 static uint16_t s_fb[GFX_H][GFX_W] __attribute__((aligned(4)));
 static uint8_t s_dirty[(GFX_H + 7) / 8];
 static int s_clip_x, s_clip_y, s_clip_w, s_clip_h;
+static gfx_stats_t s_stats;
 
 const gfx_font_t gfx_font_small = {
     .data = font_spleen_5x8[0],
@@ -258,6 +260,7 @@ int gfx_wrap(char *text, int max_width, const gfx_font_t *f, const char **lines,
 
 int gfx_flush(void)
 {
+    const int64_t started = z_now_us();
     int sent = 0;
     for (int y = 0; y < GFX_H;) {
         if (!(s_dirty[y >> 3] & (1u << (y & 7)))) {
@@ -271,14 +274,26 @@ int gfx_flush(void)
         esp_err_t err = panel_write_rect(0, (uint16_t)y0, GFX_W, (uint16_t)(y - y0), (const uint8_t *)s_fb[y0]);
         if (err != ESP_OK) {
             /* leave the band dirty so it is retried on the next frame */
-            return sent > 0 ? sent : -1;
+            break;
         }
         for (int yy = y0; yy < y; yy++) {
             s_dirty[yy >> 3] &= (uint8_t)~(1u << (yy & 7));
         }
         sent += y - y0;
     }
+    const int32_t dt = (int32_t)(z_now_us() - started);
+    s_stats.flushes++;
+    s_stats.rows += (uint32_t)sent;
+    s_stats.last_us = dt;
+    if (dt > s_stats.max_us) {
+        s_stats.max_us = dt;
+    }
     return sent;
+}
+
+void gfx_get_stats(gfx_stats_t *out)
+{
+    *out = s_stats;
 }
 
 const uint8_t *gfx_framebuffer(void)

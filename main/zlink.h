@@ -10,7 +10,7 @@
  *                    proj="<tok>" sid="<tok>" clk="HH:MM:SS" date="<str>"
  *                    (every frame is a complete snapshot; unknown keys are ignored)
  *
- *   host -> device   ZTV1 C ping | demo=<0|1> | rot=<0..3> | reboot
+ *   host -> device   ZTV1 C ping | demo=<0|1> | rot=<0..3> | stats | get | reboot
  *   device -> host   ZTV1 R <text>
  */
 void zlink_start(void);

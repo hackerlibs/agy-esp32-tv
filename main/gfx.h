@@ -69,4 +69,13 @@ int gfx_wrap(char *text, int max_width, const gfx_font_t *f, const char **lines,
 /* Sends dirty rows to the panel; returns the number of rows pushed. */
 int gfx_flush(void);
 
+typedef struct {
+    uint32_t flushes;
+    uint32_t rows;
+    int32_t last_us; /* duration of the last flush */
+    int32_t max_us;  /* duration of the slowest flush */
+} gfx_stats_t;
+
+void gfx_get_stats(gfx_stats_t *out);
+
 const uint8_t *gfx_framebuffer(void); /* GFX_H * GFX_W * 2 bytes, big-endian RGB565 */
