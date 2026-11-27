@@ -112,11 +112,8 @@ esp_err_t panel_init(const panel_config_t *cfg)
 {
     s_cfg = *cfg;
     s_rotation = cfg->rotation & 3;
-    /* Bring-up test knob: some wirings may have DC and RST the other way round. */
-    const int dc_gpio = cfg->swap_dc_rst ? cfg->rst_gpio : cfg->dc_gpio;
-    const int rst_gpio = cfg->swap_dc_rst ? cfg->dc_gpio : cfg->rst_gpio;
-    s_cfg.dc_gpio = dc_gpio;
-    s_cfg.rst_gpio = rst_gpio;
+    const int dc_gpio = cfg->dc_gpio;
+    const int rst_gpio = cfg->rst_gpio;
 
     uint64_t mask = 0;
     if (dc_gpio >= 0) {
@@ -201,7 +198,7 @@ esp_err_t panel_init(const panel_config_t *cfg)
     }
 
     /* Same reset pulse as the stock firmware: release, 20 ms low, 150 ms settle. */
-    if (rst_gpio >= 0 && !cfg->skip_reset) {
+    if (rst_gpio >= 0) {
         gpio_set_level(cfg->rst_gpio, 1);
         delay_ms(5);
         gpio_set_level(cfg->rst_gpio, 0);
