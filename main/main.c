@@ -16,12 +16,6 @@
 #include "zlink.h"
 #include "zmodel.h"
 
-#ifdef CONFIG_ZTV_TEST_BARS
-void bars_test_run(void);
-#endif
-#ifdef CONFIG_ZTV_TEST_RAW
-void raw_test_run(void);
-#endif
 
 static const char *TAG = "main";
 
@@ -35,13 +29,6 @@ static const char *TAG = "main";
 void app_main(void)
 {
     ESP_LOGI(TAG, "ZCode TV %s booting", ZTV_VERSION);
-
-#ifdef CONFIG_ZTV_TEST_RAW
-    raw_test_run(); /* never returns */
-#endif
-#ifdef CONFIG_ZTV_TEST_BARS
-    bars_test_run(); /* never returns */
-#endif
 
     z_port_init();
 
@@ -57,6 +44,8 @@ void app_main(void)
         .spi_mode = CONFIG_ZTV_LCD_SPI_MODE,
         .rotation = CONFIG_ZTV_LCD_ROTATION,
         .invert = LCD_INVERT,
+        .bl_gpio = CONFIG_ZTV_LCD_PIN_BL,
+        .bl_brightness = CONFIG_ZTV_LCD_BL_BRIGHTNESS,
     };
     ESP_ERROR_CHECK(panel_init(&panel));
 

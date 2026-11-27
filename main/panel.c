@@ -1,6 +1,7 @@
 #include "panel.h"
 
 #include "driver/gpio.h"
+#include "driver/ledc.h"
 #include "driver/spi_master.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
@@ -24,8 +25,13 @@
 /* MADCTL values used by the stock firmware's setRotation(). */
 static const uint8_t MADCTL[4] = {0x00, 0x60, 0xC0, 0xA0};
 
-static const char *TAG = "panel";
+#define BL_LEDC_TIMER   LEDC_TIMER_0
+#define BL_LEDC_CHANNEL LEDC_CHANNEL_0
+#define BL_LEDC_MODE    LEDC_LOW_SPEED_MODE
+#define BL_LEDC_RES     LEDC_TIMER_8_BIT
 
+static const char *TAG = "panel";
+static bool s_bl_ready;
 static spi_device_handle_t s_spi;
 static panel_config_t s_cfg;
 static uint8_t s_rotation;
@@ -136,6 +142,37 @@ esp_err_t panel_init(const panel_config_t *cfg)
         gpio_set_level(dc_gpio, 1);
     }
     cs_release();
+
+    if (cfg->bl_gpio >= 0) {
+        /* The backlight is an LED driven from a PWM pin. The panel renders fine
+         * without this; it just stays invisible. */
+        const ledc_timer_config_t timer = {
+            .speed_mode = BL_LEDC_MODE,
+            .duty_resolution = BL_LEDC_RES,
+            .timer_num = BL_LEDC_TIMER,
+            .freq_hz = 5000,
+            .clk_cfg = LEDC_AUTO_CLK,
+        };
+        const ledc_channel_config_t channel = {
+            .gpio_num = cfg->bl_gpio,
+            .speed_mode = BL_LEDC_MODE,
+            .channel = BL_LEDC_CHANNEL,
+            .intr_type = LEDC_INTR_DISABLE,
+            .timer_sel = BL_LEDC_TIMER,
+            .duty = 0,
+            .hpoint = 0,
+        };
+        err = ledc_timer_config(&timer);
+        if (err == ESP_OK) {
+            err = ledc_channel_config(&channel);
+        }
+        if (err == ESP_OK) {
+            s_bl_ready = true;
+            panel_set_brightness(cfg->bl_brightness);
+        } else {
+            ESP_LOGE(TAG, "backlight setup failed: %s", esp_err_to_name(err));
+        }
+    }
 
     spi_bus_config_t bus = {
         .sclk_io_num = cfg->sclk_gpio,
@@ -250,6 +287,18 @@ esp_err_t panel_write_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const
     }
     cs_release();
     return err;
+}
+
+esp_err_t panel_set_brightness(uint8_t percent)
+{
+    if (!s_bl_ready) {
+        return ESP_ERR_INVALID_STATE;
+    }
+    if (percent > 100) {
+        percent = 100;
+    }
+    const uint32_t duty = (255u * percent + 50u) / 100u;
+    return ledc_set_duty_and_update(BL_LEDC_MODE, BL_LEDC_CHANNEL, duty, 0);
 }
 
 esp_err_t panel_set_rotation(uint8_t rotation)

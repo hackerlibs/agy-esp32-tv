@@ -86,22 +86,19 @@ menu "ZCode TV (ESP32 status display)"
             default 30
             range 5 3600
 
-        config ZTV_TEST_BARS
-            bool "Bring-up test: cycle panel configs showing color bars"
-            default n
+        config ZTV_LCD_PIN_BL
+            int "Backlight GPIO (-1 if hardwired)"
+            default 1
+            range -1 21
             help
-               Instead of the status UI, cycle SPI mode / clock / reset variants,
-               each filling the panel with its own color, and log the phase on the
-               console. For verifying a panel whose wiring came from reverse
-               engineering; watch the screen and the serial log side by side.
+               The panel's LED backlight is switched by a GPIO on this board
+               (GPIO1, driven with PWM by the stock firmware). Without it the
+               panel renders but stays dark.
 
-        config ZTV_TEST_RAW
-            bool "Bring-up test: drive the panel with bare registers like the stock firmware"
-            default n
-            help
-               Replaces the status UI with a register-level replay of the stock
-               firmware's panel bring-up (no SPI/GPIO drivers). For bisecting a
-               panel that stays dark through the driver path.
+        config ZTV_LCD_BL_BRIGHTNESS
+            int "Backlight brightness (0-100 %)"
+            default 100
+            range 1 100
 
     endmenu
 
