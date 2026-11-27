@@ -7,7 +7,7 @@
 #include <stdio.h>
 extern int s_trace_x, s_trace_y;
 extern long g_trace_flushes;
-void gfx_trace_pixel(int x, int y);
+void gfx_trace_pixel(int x, int y, const char *who);
 #endif
 
 #include "fonts/font_cubic11_12.h"
@@ -58,7 +58,7 @@ static inline void put_px(int x, int y, gfx_color_t c)
 {
 #ifdef GFX_TRACE_PIXEL
     if (x == s_trace_x && y == s_trace_y) {
-        gfx_trace_pixel(x, y);
+        gfx_trace_pixel(x, y, "put_px");
     }
 #endif
     x -= s_clip_x;
@@ -73,11 +73,11 @@ static inline void put_px(int x, int y, gfx_color_t c)
 #ifdef GFX_TRACE_PIXEL
 int s_trace_x = 3, s_trace_y = 2;
 long g_trace_flushes;
-void gfx_trace_pixel(int x, int y)
+void gfx_trace_pixel(int x, int y, const char *who)
 {
     void *frames[12];
     int n = backtrace(frames, 12);
-    fprintf(stderr, "write (%d,%d) clip=(%d,%d %dx%d):", x, y, s_clip_x, s_clip_y, s_clip_w, s_clip_h);
+    fprintf(stderr, "write (%d,%d) clip=(%d,%d %dx%d) %s:", x, y, s_clip_x, s_clip_y, s_clip_w, s_clip_h, who);
     for (int i = 1; i < n && i < 7; i++) {
         Dl_info info;
         if (dladdr(frames[i], &info) && info.dli_sname) {
@@ -144,6 +144,11 @@ void gfx_fill_rect(int x, int y, int w, int h, gfx_color_t c)
     for (int yy = ya; yy < yb; yy++) {
         uint16_t *row = s_fb[yy];
         for (int xx = xa; xx < xb; xx++) {
+#ifdef GFX_TRACE_PIXEL
+            if (yy == s_trace_y && xx == s_trace_x) {
+                gfx_trace_pixel(xx, yy, "fill_rect");
+            }
+#endif
             row[xx] = v;
         }
     }
