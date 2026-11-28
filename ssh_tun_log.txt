@@ -1,0 +1,3604 @@
+Last login: Sat Nov 28 05:54:17 on ttys006
+
+/Volumes/macwin/winsoft
+❯ ls esptool
+ls: esptool: No such file or directory
+
+/Volumes/macwin/winsoft
+❯ cd
+
+~
+❯ cd ~/.espressif
+
+~/.espressif
+❯ ls
+dist				idf-env.json			tools
+espidf.constraints.v5.5.txt	python_env
+
+~/.espressif
+❯ fg esp_rfc2217_server.py
+./python_env/idf5.5_py3.13_env/bin/esp_rfc2217_server.py
+
+~/.espressif
+❯ ./python_env/idf5.5_py3.13_env/bin/esp_rfc2217_server.py -v -p 4000 /dev/cu.usbmodem14201
+INFO: RFC 2217 TCP/IP to Serial redirector - type Ctrl-C / BREAK to quit
+INFO: Serving serial port: /dev/cu.usbmodem14201
+INFO: TCP/IP port: 4000
+INFO: Waiting for connection ... use the 'rfc2217://127.0.0.1:4000?ign_set_control' as a PORT
+......................................INFO: Connected by 127.0.0.1:52828
+INFO: Disconnected
+.INFO: Connected by 127.0.0.1:52829
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: purge in
+INFO: Disconnected
+..............INFO: Connected by 127.0.0.1:52838
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:52843
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+.INFO: Connected by 127.0.0.1:52857
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+.INFO: Connected by 127.0.0.1:52863
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:52866
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:52872
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating reset in thread
+INFO: Disconnected
+...INFO: Connected by 127.0.0.1:52877
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: purge in
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Disconnected
+...INFO: Connected by 127.0.0.1:52878
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+.....INFO: Connected by 127.0.0.1:52881
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: purge in
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Disconnected
+......INFO: Connected by 127.0.0.1:52883
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Disconnected
+.....INFO: Connected by 127.0.0.1:52886
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating reset in thread
+INFO: Activating reset in thread
+INFO: Activating hard reset in thread
+INFO: Activating reset in thread
+INFO: Activating reset in thread
+INFO: Activating reset in thread
+INFO: Activating reset in thread
+INFO: Disconnected
+.....INFO: Connected by 127.0.0.1:52890
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+........INFO: Connected by 127.0.0.1:52892
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: Disconnected
+............................................................................................................................
+^C
+INFO: Exited with keyboard interrupt
+INFO: --- exit ---
+
+~/.espressif 22m 57s
+❯ ./python_env/idf5.5_py3.13_env/bin/esp_rfc2217_server.py -v -p 4000 /dev/cu.usbmodem14201
+INFO: RFC 2217 TCP/IP to Serial redirector - type Ctrl-C / BREAK to quit
+INFO: Serving serial port: /dev/cu.usbmodem14201
+INFO: TCP/IP port: 4000
+INFO: Waiting for connection ... use the 'rfc2217://127.0.0.1:4000?ign_set_control' as a PORT
+................INFO: Connected by 127.0.0.1:52977
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+......INFO: Connected by 127.0.0.1:52979
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:52980
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:52983
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating reset in thread
+INFO: Disconnected
+......INFO: Connected by 127.0.0.1:52986
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+  1
+~
+~
+~
+~
+~
+~
+~
+~
+~
+-- INSERT --
+  1 [esptool]
+INFO: purge in
+INFO: purge out
+INFO: purge in
+INFO: Disconnected
+........^C
+INFO: Exited with keyboard interrupt
+INFO: --- exit ---
+
+~/.espressif 4m 59s
+❯ vi esptool_c3.cfg
+
+~/.espressif 13s
+❯ ESPTOOL_CFGFILE=esptool_c3.cfg ./python_env/idf5.5_py3.13_env/bin/esp_rfc2217_server.py -v -p 4000 /dev/cu.usbmodem14201
+Loaded custom configuration from /Users/xlisp/.espressif/esptool_c3.cfg (set with ESPTOOL_CFGFILE)
+INFO: RFC 2217 TCP/IP to Serial redirector - type Ctrl-C / BREAK to quit
+INFO: Serving serial port: /dev/cu.usbmodem14201
+INFO: TCP/IP port: 4000
+INFO: Waiting for connection ... use the 'rfc2217://127.0.0.1:4000?ign_set_control' as a PORT
+....INFO: Connected by 127.0.0.1:53003
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53009
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:53012
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:53013
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Disconnected
+...INFO: Connected by 127.0.0.1:53022
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53034
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+ERROR: read failed: [Errno 6] Device not configured
+Exception in thread status line poll:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 1043, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 994, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xlisp/.espressif/python_env/idf5.5_py3.13_env/lib/python3.13/site-packages/esp_rfc2217_server/redirector.py", line 31, in statusline_poller
+    self.rfc2217.check_modem_lines()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/xlisp/.espressif/python_env/idf5.5_py3.13_env/lib/python3.13/site-packages/serial/rfc2217.py", line 1017, in check_modem_lines
+    (self.serial.cts and MODEMSTATE_MASK_CTS) |
+     ^^^^^^^^^^^^^^^
+  File "/Users/xlisp/.espressif/python_env/idf5.5_py3.13_env/lib/python3.13/site-packages/serial/serialposix.py", line 722, in cts
+    s = fcntl.ioctl(self.fd, TIOCMGET, TIOCM_zero_str)
+OSError: [Errno 6] Device not configured
+ERROR: Could not configure port: (6, 'Device not configured')
+INFO: Disconnected
+ERROR: [Errno 6] Device not configured
+INFO: Connected by 127.0.0.1:53035
+ERROR: [Errno 6] Device not configured
+....INFO: Connected by 127.0.0.1:53036
+ERROR: [Errno 6] Device not configured
+.INFO: Connected by 127.0.0.1:53037
+ERROR: [Errno 6] Device not configured
+..INFO: Connected by 127.0.0.1:53038
+ERROR: [Errno 6] Device not configured
+.......^C
+INFO: Exited with keyboard interrupt
+INFO: --- exit ---
+
+~/.espressif 9m 6s
+❯ ESPTOOL_CFGFILE=esptool_c3.cfg ./python_env/idf5.5_py3.13_env/bin/esp_rfc2217_server.py -v -p 4000 /dev/cu.usbmodem14201
+Loaded custom configuration from /Users/xlisp/.espressif/esptool_c3.cfg (set with ESPTOOL_CFGFILE)
+INFO: RFC 2217 TCP/IP to Serial redirector - type Ctrl-C / BREAK to quit
+INFO: Serving serial port: /dev/cu.usbmodem14201
+INFO: TCP/IP port: 4000
+INFO: Waiting for connection ... use the 'rfc2217://127.0.0.1:4000?ign_set_control' as a PORT
+...........INFO: Connected by 127.0.0.1:53042
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:53043
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: Disconnected
+.....INFO: Connected by 127.0.0.1:53053
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: Disconnected
+.......INFO: Connected by 127.0.0.1:53055
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53056
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53057
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53058
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53059
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53060
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53061
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53062
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53063
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53064
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53065
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: purge in
+INFO: Disconnected
+INFO: Connected by 127.0.0.1:53151
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 9600
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: purge in
+INFO: purge out
+INFO: Disconnected
+..INFO: Connected by 127.0.0.1:53163
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: client accepts RFC 2217
+INFO: NOTIFY_MODEMSTATE: False
+INFO: set baud rate: 115200
+INFO: set data size: 8
+INFO: set parity: N
+INFO: set stop bits: 1
+INFO: changed flow control to None
+INFO: Activating reset in thread
+INFO: purge in
+INFO: purge out
+INFO: Activating hard reset in thread
+INFO: purge in
+
+
